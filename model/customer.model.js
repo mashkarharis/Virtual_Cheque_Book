@@ -1,6 +1,14 @@
 var db = require('../config/database');
 var dbFunc = require('../config/db-function');
 
+var CustomerModel = {
+    getCustomers,
+    getCustomerById,
+    addCustomer,
+    updateCustomerStatus,
+    updateCustomerPinForget,
+    updateCustomerPin
+}
 
 function getCustomers() {
     return new Promise((resolve,reject) => {
@@ -30,3 +38,61 @@ function getCustomerById(id) {
     });  
 }
 
+function addCustomer(customer) {
+    //TODO: set "user" attribute appropriate to the data passing -- checkout ../document/user_reg.txt 
+    return new Promise((resolve,reject) => {
+        db.query(`CALL user_reg(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[customer],(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows[0]);
+            }
+       });
+    });
+}
+
+function updateCustomerStatus(customer) {
+    return new Promise((resolve,reject) => {
+        db.query(`CALL approve_acc(?)`,[customer.id],(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows[0]);
+            }
+       });
+    });
+}
+
+function updateCustomerPinForget(customer) {
+    return new Promise((resolve,reject) => {
+        db.query(`CALL set_pin_forget(?)`,[customer.id],(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows[0]);
+            }
+       });
+    });
+}
+
+function updateCustomerPin(customer) {
+    return new Promise((resolve,reject) => {
+        db.query(`CALL update_pin(?, ?)`,[customer.id, customer.pin],(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows[0]);
+            }
+       });
+    });
+}
+
+module.exports = CustomerModel;

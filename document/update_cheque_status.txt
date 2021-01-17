@@ -1,0 +1,9 @@
+CREATE DEFINER=`umaim64n3koovo8v`@`%` PROCEDURE `update_cheque_status`(
+	IN cheque_id int(48),
+    IN stat varchar(10)
+)
+BEGIN
+	Update Cheque
+    set status = stat
+    where cheque_id = cheque_id;
+END

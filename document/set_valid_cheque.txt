@@ -1,8 +1,0 @@
-CREATE DEFINER=`umaim64n3koovo8v`@`%` PROCEDURE `set_valid_cheque`(
-	IN cheque_id int(48)
-)
-BEGIN
-	Update Cheque
-    set status = "PASSED"
-    where cheque_id = cheque_id;
-END
