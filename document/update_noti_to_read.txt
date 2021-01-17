@@ -1,0 +1,8 @@
+CREATE DEFINER=`umaim64n3koovo8v`@`%` PROCEDURE `update_noti_to_read`(
+	IN notification_id int(64)
+)
+BEGIN
+	Update Notification
+    set status = "READ"
+    where noitifaction_id = notification_id;
+END

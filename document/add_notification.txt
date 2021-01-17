@@ -1,0 +1,10 @@
+CREATE DEFINER=`umaim64n3koovo8v`@`%` PROCEDURE `add_notification`(
+	IN date timestamp, 
+	IN to_id int(11),
+	IN title varchar(500), 
+	IN message varchar(500) 
+)
+BEGIN
+	insert into Notification (date, to_id, title, message, status)
+    value (date, to_id, title, message ,"NOTREAD");
+END

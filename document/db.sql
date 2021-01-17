@@ -97,14 +97,14 @@ CREATE TABLE `Notification` (
 );
 
 
-insert into User values (1,'STAFF','abcsilva','24wef3wg2ew3erg4d12','PENDING');
-insert into User values (2,'STAFF','kamal','24wef3wg2ew3erg4d12','APPROVED');
-insert into User values (3,'STAFF','saman','24wef3wg2ew3erg4d12','DELETED');
-insert into User values (4,'STAFF','vimal','24wef3wg2ew3erg4d12','REJECTED');
+-- insert into User values (1,'STAFF','abcsilva','24wef3wg2ew3erg4d12','PENDING');
+-- insert into User values (2,'STAFF','kamal','24wef3wg2ew3erg4d12','APPROVED');
+-- insert into User values (3,'STAFF','saman','24wef3wg2ew3erg4d12','DELETED');
+-- insert into User values (4,'STAFF','vimal','24wef3wg2ew3erg4d12','REJECTED');
 
-insert into User values (5,'CUSTOMER','ajith','24wef3wg2ew3erg4d12','PENDING');
-insert into User values (6,'CUSTOMER','perera','24wef3wg2ew3erg4d12','PENDING');
+-- insert into User values (5,'CUSTOMER','ajith','24wef3wg2ew3erg4d12','PENDING');
+-- insert into User values (6,'CUSTOMER','perera','24wef3wg2ew3erg4d12','PENDING');
 
 
-select * from User;
+-- select * from User;
 

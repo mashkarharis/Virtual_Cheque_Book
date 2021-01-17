@@ -1,0 +1,23 @@
+CREATE DEFINER=`umaim64n3koovo8v`@`%` PROCEDURE `add_cheque`(
+	IN sender_id int(11), 
+	IN receiver_id int(11), 
+	IN evaluator_id int(11), 
+	IN amount decimal(10,2), 
+	IN date timestamp
+)
+BEGIN
+	DECLARE errno INT;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+    GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
+    SELECT errno AS MYSQL_ERROR;
+    ROLLBACK;
+    END;
+    
+    start transaction;
+    
+    insert into Cheque (sender_id, receiver_id, evaluator_id, amount, status, date)
+    value (sender_id, receiver_id, evaluator_id, amount, "PENDING", date);
+    
+    commit work;
+END

@@ -1,0 +1,9 @@
+CREATE DEFINER=`umaim64n3koovo8v`@`%` PROCEDURE `approve_acc`(
+	IN user_id int(11)
+)
+BEGIN
+	update User
+    set
+		status = "APPROVED"
+	where user_id = user_id;
+END

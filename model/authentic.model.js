@@ -10,7 +10,7 @@ const authenticModel = {
 function authentic(authenticData) {
     return new Promise((resolve, reject) => {
         //console.log(`SELECT * FROM User WHERE username ='${authenticData.login_username}'`);
-        db.query(`SELECT * FROM User WHERE username ='${authenticData.login_username}'`, (error, rows, fields) => {
+        db.query(`SELECT * FROM User WHERE username =?` ,[authenticData.login_username], (error, rows, fields) => {
             if (error) {
                 //console.log('error');
                 dbFunc.connectionRelease;
@@ -51,7 +51,7 @@ function signup(user) {
                     return next(err);
                 }
                 user.password = hash;
-                db.query("SELECT * FROM user WHERE username='"+user.username+"'", (error, rows, fields) => {
+                db.query("SELECT * FROM user WHERE username= ?",[user.username], (error, rows, fields) => {
                     if (error) {
                         dbFunc.connectionRelease;
                         reject(error);
@@ -59,7 +59,7 @@ function signup(user) {
                         dbFunc.connectionRelease;
                         reject({"success":false,"message":"user already exist ! try with different user"});
                     } else {
-                        db.query("INSERT INTO user(username,password)VALUES('" + user.username + "','" + user.password + "')", (error, rows, fields) => {
+                        db.query("INSERT INTO user(username,password) VALUES (?, ?)", [user.username,user.password], (error, rows, fields) => {
                             if (error) {
                                 dbFunc.connectionRelease;
                                 reject(error);
