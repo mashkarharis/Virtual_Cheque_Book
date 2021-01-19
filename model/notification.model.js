@@ -1,5 +1,5 @@
-var db = require('../config/database');
-var dbFunc = require('../config/db-function');
+const db = require('../db/database');
+var dbFunc = require('../db/db-function');
 
 var NotificationModel = {
     getNotiById,

@@ -9,6 +9,7 @@ module.exports = mysql.createPool({
     database: config.db.database,//'bq7l4yjndinfmy4tdyaa',
     port: config.db.port,//3306,
     password: config.db.password,//'ADZS2xBRWVwJzo84w7dW',
+    insecureAuth : true
 })
 
 

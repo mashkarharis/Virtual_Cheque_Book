@@ -1,5 +1,5 @@
-const db = require('../config/database');
-const dbFunc = require('../config/db-function');
+const db = require('../db/database');
+const dbFunc = require('../db/db-function');
 const bcrypt = require('bcryptjs');
 
 const authenticModel = {

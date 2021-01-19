@@ -1,5 +1,5 @@
-var db = require('../config/database');
-var dbFunc = require('../config/db-function');
+const db = require('../db/database');
+var dbFunc = require('../db/db-function');
 
 var CustomerModel = {
     getCustomers,
@@ -17,6 +17,7 @@ function getCustomers() {
                 dbFunc.connectionRelease;
                 reject(error);
             } else {
+                
                 dbFunc.connectionRelease;
                 resolve(rows);
             }
@@ -39,19 +40,22 @@ function getCustomerById(id) {
 }
 
 function addCustomer(customer) {
+    
     //TODO: set "user" attribute appropriate to the data passing -- checkout ../document/user_reg.txt 
     return new Promise((resolve,reject) => {
-        db.query(`CALL user_reg(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[customer],(error,rows,fields)=>{
+        db.query(`CALL user_reg(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,customer,(error,rows,fields)=>{
+
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
             } else {
+                
                 dbFunc.connectionRelease;
-                resolve(rows[0]);
+                resolve(rows);
             }
        });
     });
-}
+} 
 
 function updateCustomerStatus(customer) {
     return new Promise((resolve,reject) => {

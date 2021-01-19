@@ -4,6 +4,7 @@
   "description": "Back End For Virtual Cheque Management System",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "test"
   },
   "author": "",

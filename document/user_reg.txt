@@ -1,4 +1,6 @@
-CREATE DEFINER=`umaim64n3koovo8v`@`%` PROCEDURE `user_reg`(
+DELIMITER //
+DROP PROCEDURE `user_reg`//
+CREATE PROCEDURE `user_reg`(
 	IN username varchar(25),
     IN password varchar(255),
     IN account_no int(10), 
@@ -27,6 +29,7 @@ BEGIN
     ROLLBACK;
     END;
 
+
     START TRANSACTION;
 
     insert into User (user_type, username, password, status)
@@ -39,4 +42,6 @@ BEGIN
 
     COMMIT WORK;
 
-END
+END;
+//
+DELIMITER ;
