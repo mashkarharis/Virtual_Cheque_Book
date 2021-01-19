@@ -10,7 +10,7 @@ var NotificationModel = {
 
 function getNotiById(id) {
     return new Promise((resolve,reject) => {
-        db.query('SELECT * FROM Notification where to_id = ?', [id.id],(error,rows,fields)=>{
+        db.query('SELECT * FROM Notification where to_id = ?', id,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
