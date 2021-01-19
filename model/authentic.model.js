@@ -1,6 +1,7 @@
 const db = require('../db/database');
 const dbFunc = require('../db/db-function');
 const bcrypt = require('bcryptjs');
+const hashservice = require('../services/hashservice');
 
 const authenticModel = {
     authentic: authentic,
@@ -10,28 +11,27 @@ const authenticModel = {
 function authentic(authenticData) {
     return new Promise((resolve, reject) => {
         //console.log(`SELECT * FROM User WHERE username ='${authenticData.login_username}'`);
-        db.query(`SELECT * FROM User WHERE username =?` ,[authenticData.login_username], (error, rows, fields) => {
-            if (error) {
+        console.log(authenticData.login_username);
+        db.query(`SELECT * FROM User WHERE username =?`, authenticData.login_username, (error, rows, fields) => {
+            if (error || rows[0] == null) {
                 //console.log('error');
                 dbFunc.connectionRelease;
                 reject(error);
             } else {
                 //console.log('no error')
                 //console.log(rows[0].password);
-                bcrypt.compare(authenticData.login_pwd, rows[0].password, function (err, isMatch) {
-                    if (err) {
-                        dbFunc.connectionRelease;
-                        reject(error);
-                    } else if (isMatch) {
-                        dbFunc.connectionRelease;
-                        console.log(rows[0]);
-                        resolve(rows);
-                    }
-                    else {
-                        dbFunc.connectionRelease;
-                        reject({"success":false,"message":"Password doesn't match"});
-                    }
-                });
+                isMatch = (authenticData.login_pwd === rows[0].password);
+
+                if (isMatch) {
+                    dbFunc.connectionRelease;
+                    console.log(rows[0]);
+                    resolve(rows);
+                }
+                else {
+                    dbFunc.connectionRelease;
+                    reject({ "message": "Password doesn't match" });
+                }
+
 
             }
         });
@@ -51,15 +51,15 @@ function signup(user) {
                     return next(err);
                 }
                 user.password = hash;
-                db.query("SELECT * FROM User WHERE username= ?",[user.username], (error, rows, fields) => {
+                db.query("SELECT * FROM User WHERE username= ?", [user.username], (error, rows, fields) => {
                     if (error) {
                         dbFunc.connectionRelease;
                         reject(error);
-                    } else if(rows.length>0) {
+                    } else if (rows.length > 0) {
                         dbFunc.connectionRelease;
-                        reject({"success":false,"message":"user already exist ! try with different user"});
+                        reject({ "success": false, "message": "user already exist ! try with different user" });
                     } else {
-                        db.query("INSERT INTO User(username,password) VALUES (?, ?)", [user.username,user.password], (error, rows, fields) => {
+                        db.query("INSERT INTO User(username,password) VALUES (?, ?)", [user.username, user.password], (error, rows, fields) => {
                             if (error) {
                                 dbFunc.connectionRelease;
                                 reject(error);
