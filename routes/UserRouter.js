@@ -82,5 +82,22 @@ router.post('/addUserCustomer', (req, res) => {
 
 });
 
+//[3]
+router.get('/getAllData/:id', (req, res) => {
+    var id = req.params.id;
+    console.log(id);
+    CustomerModel.getCustomerById(id).then((success) => {
+        res.json({
+            "success": true,
+            "data": success
+        });
+    }).catch((failed) => {
+        res.json({
+            "success": false,
+            "data": failed
+        });
+    });
+}
+);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const db = require('../db/database');
+/*const db = require('../db/database');
 var dbFunc = require('../db/db-function');
 
 var userModel = {
@@ -82,4 +82,4 @@ function deleteUser(id) {
 
 
 module.exports = userModel;
-
+*/

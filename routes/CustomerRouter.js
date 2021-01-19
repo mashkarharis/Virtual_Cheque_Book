@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     res.send("Customer Accessed !!!")
 }
 );
-
+//[3]
 router.get('/getAllData/:id', (req, res) => {
     var id = req.params.id;
     console.log(id);
