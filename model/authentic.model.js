@@ -51,7 +51,7 @@ function signup(user) {
                     return next(err);
                 }
                 user.password = hash;
-                db.query("SELECT * FROM user WHERE username= ?",[user.username], (error, rows, fields) => {
+                db.query("SELECT * FROM User WHERE username= ?",[user.username], (error, rows, fields) => {
                     if (error) {
                         dbFunc.connectionRelease;
                         reject(error);
@@ -59,7 +59,7 @@ function signup(user) {
                         dbFunc.connectionRelease;
                         reject({"success":false,"message":"user already exist ! try with different user"});
                     } else {
-                        db.query("INSERT INTO user(username,password) VALUES (?, ?)", [user.username,user.password], (error, rows, fields) => {
+                        db.query("INSERT INTO User(username,password) VALUES (?, ?)", [user.username,user.password], (error, rows, fields) => {
                             if (error) {
                                 dbFunc.connectionRelease;
                                 reject(error);

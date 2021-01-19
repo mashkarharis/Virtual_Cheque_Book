@@ -35,7 +35,7 @@ BEGIN
     insert into User (user_type, username, password, status)
     value ('CUSTOMER', username, password, 'PENDING');
     
-    select user_id into userId from User where userame = username;
+    select user_id into userId from User where username = username;
     
     insert into Customer (customer_id, account_no, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_primary, contact_secondary)
     value (userId, account_no, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_primary, contact_secondary);
