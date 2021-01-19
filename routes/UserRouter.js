@@ -3,6 +3,7 @@ const express=require('express');
 const CustomerModel = require('../model/customer.model');
 const router=express.Router()
 const hashservice = require('../services/hashservice');
+const generatepin = require('../services/pingenerationservice');
 
 
 
@@ -29,7 +30,7 @@ router.post('/addUserCustomer', (req,res)=> {
             req.body.street+'',
             req.body.city+'',
             parseInt(req.body.postal_code+''),
-            2314,
+            generatepin(6),
             parseInt(req.body.contact_primary+''),
             parseInt(req.body.contact_secondary+''),
         ]
