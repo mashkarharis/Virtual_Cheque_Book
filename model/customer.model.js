@@ -28,7 +28,7 @@ function getCustomers() {
 function getCustomerById(id) {
     return new Promise((resolve,reject) => {
         db.query('SELECT * FROM Customer WHERE customer_id = ?',id,(error,rows,fields)=>{
-            if(!!error) {
+            if(!!error || rows[0]==null) {
                 dbFunc.connectionRelease;
                 reject(error);
             } else {
