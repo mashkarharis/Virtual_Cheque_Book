@@ -114,7 +114,7 @@ function updateChequeToPass(cheque) {
 
 function updateChequeToEval(cheque_id) {
     return new Promise((resolve,reject) => {
-        db.query(`CALL update_cheque_status(?, ?)`,[cheque_id, "PENDING"],(error,rows,fields)=>{
+        db.query(`CALL update_cheque_status(?, ?)`,[cheque_id, "EVALUATING"],(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
