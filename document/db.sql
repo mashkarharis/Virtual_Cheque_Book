@@ -96,15 +96,50 @@ CREATE TABLE `Notification` (
     FOREIGN KEY (to_id) REFERENCES User (user_id)
 );
 
+DELIMITER //
+DROP PROCEDURE `user_reg`//
+CREATE PROCEDURE `user_reg`(
+	IN username varchar(25),
+    IN password varchar(255),
+    IN account_no int(10), 
+	IN full_name varchar(100), 
+	IN name_with_init varchar(100),
+	IN dob date, 
+	IN created_date date, 
+	IN NIC varchar(20), 
+	IN gender varchar(25), 
+	IN house_no varchar(25), 
+	IN street varchar(25), 
+	IN city varchar(25), 
+	IN postal_code int(8), 
+	IN pin int(6), 
+	IN contact_primary int(10),
+	IN contact_secondary int(10)
+)
+BEGIN
+	
+    declare userId int(11);
+    DECLARE errno INT;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+    GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
+    SELECT errno AS MYSQL_ERROR;
+    ROLLBACK;
+    END;
 
--- insert into User values (1,'STAFF','abcsilva','24wef3wg2ew3erg4d12','PENDING');
--- insert into User values (2,'STAFF','kamal','24wef3wg2ew3erg4d12','APPROVED');
--- insert into User values (3,'STAFF','saman','24wef3wg2ew3erg4d12','DELETED');
--- insert into User values (4,'STAFF','vimal','24wef3wg2ew3erg4d12','REJECTED');
 
--- insert into User values (5,'CUSTOMER','ajith','24wef3wg2ew3erg4d12','PENDING');
--- insert into User values (6,'CUSTOMER','perera','24wef3wg2ew3erg4d12','PENDING');
+    START TRANSACTION;
 
+    insert into User (user_type, username, password, status)
+    value ('CUSTOMER', username, password, 'PENDING');
+    
+    select user_id into userId from User where userame = username;
+    
+    insert into Customer (customer_id, account_no, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_primary, contact_secondary)
+    value (userId, account_no, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_primary, contact_secondary);
 
--- select * from User;
+    COMMIT WORK;
 
+END;
+//
+DELIMITER ;

@@ -1,11 +1,16 @@
 // Initialize Express
 const express=require('express');
 const app=express();
-
+var bodyParser = require('body-parser');
 // Route Files
 const userRouter=require('./routes/UserRouter');
 const staffRouter=require('./routes/StaffRouter');
 const customerRouter=require('./routes/CustomerRouter');
+
+//
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 // Redirect to router files

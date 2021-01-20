@@ -1,5 +1,5 @@
-var db = require('../config/database');
-var dbFunc = require('../config/db-function');
+const db = require('../db/database');
+var dbFunc = require('../db/db-function');
 
 var NotificationModel = {
     getNotiById,
@@ -10,7 +10,7 @@ var NotificationModel = {
 
 function getNotiById(id) {
     return new Promise((resolve,reject) => {
-        db.query('SELECT * FROM Notification where to_id = ?', [id.id],(error,rows,fields)=>{
+        db.query('SELECT * FROM Notification where to_id = ?', id,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
