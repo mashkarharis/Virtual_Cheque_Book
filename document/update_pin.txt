@@ -1,9 +1,9 @@
 CREATE DEFINER=`umaim64n3koovo8v`@`%` PROCEDURE `update_pin`(
-	IN customer_id int(11),
+	IN ctm_id int(11),
     IN pin int(6)
 )
 BEGIN
-	Update Employee
+	Update Customer
     set pin = pin
-    where customer_id = customer_id;
+    where customer_id = ctm_id;
 END

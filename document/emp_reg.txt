@@ -21,20 +21,21 @@ BEGIN
     DECLARE errno INT;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
-    GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
-    SELECT errno AS MYSQL_ERROR;
-    ROLLBACK;
-    END;
+	GET DIAGNOSTICS CONDITION 1 @sqlstate = RETURNED_SQLSTATE, 
+	@errno = MYSQL_ERRNO, @text = MESSAGE_TEXT;
+	SET @full_error = CONCAT("ERROR ", @errno, " (", @sqlstate, "): ", @text);
+	SELECT @full_error;
+    rollback;
+	END;
 
     START TRANSACTION;
 
     insert into User (user_type, username, password, status)
     value ('STAFF', username, password, 'APPROVED');
     
-    select user_id into empId from User where userame = username;
     
     insert into Employee (emp_id, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_No, post_id)
-    value (emp_id, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_No, post_id);
+    value (last_insert_id(), full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_No, post_id);
 
     COMMIT WORK;
 

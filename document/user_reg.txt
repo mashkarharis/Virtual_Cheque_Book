@@ -22,21 +22,23 @@ BEGIN
     DECLARE errno INT;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
-    GET CURRENT DIAGNOSTICS CONDITION 1 errno = MYSQL_ERRNO;
-    SELECT errno AS MYSQL_ERROR;
-    ROLLBACK;
-    END;
+	GET DIAGNOSTICS CONDITION 1 @sqlstate = RETURNED_SQLSTATE, 
+	@errno = MYSQL_ERRNO, @text = MESSAGE_TEXT;
+	SET @full_error = CONCAT("ERROR ", @errno, " (", @sqlstate, "): ", @text);
+	SELECT @full_error;
+    rollback;
+	END;
 
     START TRANSACTION;
 
     insert into User (user_type, username, password, status)
     value ('CUSTOMER', username, password, 'PENDING');
     
-    select user_id into userId from User where username = username;
+    #select user_id into userId from User where username = username;
     
     insert into Customer (customer_id, account_no, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_primary, contact_secondary)
-    value (userId, account_no, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_primary, contact_secondary);
+    value (LAST_INSERT_ID(), account_no, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_primary, contact_secondary);
 
-    COMMIT WORK;
-
+    COMMIT work;
+	
 END
