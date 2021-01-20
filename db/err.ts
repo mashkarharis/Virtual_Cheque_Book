@@ -1,5 +1,6 @@
 // false
 
-//true but failed
+//Success true : true but failed
 //--------------
-// @FullERROR
+//Duplicate value for addCustomer @FullERROR
+//Foreign Key Fail for addchque

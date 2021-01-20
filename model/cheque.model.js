@@ -3,7 +3,8 @@ var dbFunc = require('../db/db-function');
 
 var ChequeModel = {
     getCheques,
-    getChequesByID,
+    getChequesByRID,
+    getChequesBySID,
     getChequesByIDWStatus,
     getChequesByReceiver,
     addCheque,
@@ -27,9 +28,22 @@ function getCheques() {
 }
 
 
-function getChequesByID(id) {
+function getChequesByRID(id) {
     return new Promise((resolve,reject) => {
-        db.query('SELECT * FROM Cheque where sender_id = ?', [id.sender_id],(error,rows,fields)=>{
+        db.query('SELECT * FROM Cheque where receiver_id = ?', id,(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+       });
+    });  
+}
+function getChequesBySID(id) {
+    return new Promise((resolve,reject) => {
+        db.query('SELECT * FROM Cheque where sender_id = ?', id,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
@@ -72,7 +86,7 @@ function getChequesByReceiver(id) {
 function addCheque(cheque) {
     //TODO: set "Cheque" attribute appropriate to the data passing -- checkout ../document/add_cheque.txt 
     return new Promise((resolve,reject) => {
-        db.query(`CALL add_cheque(?,?,?,?,?)`,[cheque],(error,rows,fields)=>{
+        db.query(`CALL add_cheque(?,?,?,?,?)`,cheque,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
@@ -98,9 +112,9 @@ function updateChequeToPass(cheque) {
     });
 }
 
-function updateChequeToEval(cheque) {
+function updateChequeToEval(cheque_id) {
     return new Promise((resolve,reject) => {
-        db.query(`CALL update_cheque_status(?, ?)`,[cheque.id, "EVALUATING"],(error,rows,fields)=>{
+        db.query(`CALL update_cheque_status(?, ?)`,[cheque_id, "PENDING"],(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
@@ -112,9 +126,9 @@ function updateChequeToEval(cheque) {
     });
 }
 
-function updateChequeToRefund(cheque) {
+function updateChequeToRefund(cheque_id) {
     return new Promise((resolve,reject) => {
-        db.query(`CALL update_cheque_status(?, ?)`,[cheque.id, "REFUNDED"],(error,rows,fields)=>{
+        db.query(`CALL update_cheque_status(?, ?)`,[cheque_id, "REFUNDED"],(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
