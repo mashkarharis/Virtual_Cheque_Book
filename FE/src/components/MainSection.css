@@ -1,0 +1,19 @@
+.main-section {
+    margin-top: 75px;
+    height: 650px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),url('../svg-4.svg') !important;
+    background-size: cover !important;
+}
+.buttons {
+    margin-top: 30px ;
+    height: 650px;
+    border-color: red;
+    border-style: solid;
+}
+
+.dashboard {
+    background-image: url('../svg-6.svg') !important;
+    background-size: cover !important;
+
+
+}
