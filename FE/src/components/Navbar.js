@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Flex,
   Box,
@@ -9,12 +9,14 @@ import {
   useDisclosure,
   ReactRouterLink,
 } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
 import { HamburgerIcon, MoonIcon, SettingsIcon } from '@chakra-ui/icons';
 
-import { Avatar, AvatarBadge } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import SessionService from '../Services/SessionService';
 
 function Navbar(props) {
+  var his=useHistory();
   const MenuItems = ({ children }) => (
     <Button
       mt={{ base: 4, md: 0 }}
@@ -26,13 +28,20 @@ function Navbar(props) {
       {children}
     </Button>
   );
+  const [update,setUpdate]=useState(Date.now());
+  
+  const logout=()=>{
+    SessionService.clearSession();
+    setUpdate(Date.now());
+    his.push('/');
+  }
 
   const [show, setShow] = React.useState(false);
   const handleToggle = () => setShow(!show);
 
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const islogged = SessionService.isAuthenticated();
   return (
     <Flex
       as="nav"
@@ -51,7 +60,7 @@ function Navbar(props) {
         <Link as={ReactRouterLink} to="/">
           <Heading as="h1" size="lg" letterSpacing={'-.1rem'}>
             {props.heading}
-            <i class="fab fa-typo3" />
+            <i className="fab fa-typo3" />
           </Heading>
         </Link>
       </Flex>
@@ -73,9 +82,11 @@ function Navbar(props) {
           </Link>
         </MenuItems>
         <MenuItems>
-          <Link as={ReactRouterLink} to="/Dashboard">
-            Dashboard
-          </Link>
+          {islogged ?
+            <Link as={ReactRouterLink} to="/Dashboard">
+              Dashboard
+          </Link> : <></>
+          }
         </MenuItems>
         <MenuItems>Help me</MenuItems>
       </Box>
@@ -92,10 +103,10 @@ function Navbar(props) {
           variant="outline"
           onClick={toggleColorMode}
         />
-
-        <Button bg="transparent" border="1px">
-          Log out
-        </Button>
+        {islogged ?
+          <Button bg="transparent" border="1px" onClick={()=>{logout()}}>
+            Log out
+        </Button> : <></>}
       </Box>
     </Flex>
   );

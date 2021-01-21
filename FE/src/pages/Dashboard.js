@@ -34,8 +34,20 @@ import {
 } from '@chakra-ui/icons';
 import '../components/MainSection.css';
 import Footer from '../components/Footer';
+import SessionService from '../Services/SessionService';
+import { Redirect } from 'react-router-dom';
 
-function Dashboard() {
+function Dashboard(props) {
+  const islogged=SessionService.isAuthenticated();
+  console.log(islogged);
+
+  if(!islogged){
+    return (
+      <Redirect
+                to={{ pathname: '/', state: { from: props.location } }}
+            />
+    );
+  }
   return (
     <>
       <div className="dashboard">

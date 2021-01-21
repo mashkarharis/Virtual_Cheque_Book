@@ -1,15 +1,7 @@
 import React from 'react';
 import {
   ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
 } from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
@@ -17,8 +9,13 @@ import Dashboard from './pages/Dashboard';
 import ChangePassword from './pages/ChangePassword';
 import ChangeDetails from './pages/ChangeDetails';
 import Welcome from './pages/Welcome';
+import SessionService from './Services/SessionService';
 
-function App() {
+function App(props) {
+  SessionService.clearSession();
+ SessionService.initSession({"A":123});
+  
+
   return (
     <Router>
       <ChakraProvider>
@@ -29,7 +26,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/changePassword" component={ChangePassword} />
           <Route path="/changeDetails" component={ChangeDetails} />
-          <Redirect from='/*' to="/" />
+          <Redirect from='/*' to="/welcome" />
         </Switch>
       </ChakraProvider>
     </Router>
