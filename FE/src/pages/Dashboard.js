@@ -48,6 +48,10 @@ function Dashboard(props) {
             />
     );
   }
+  var data=SessionService.getdata();
+  console.log("1423");
+  var user=JSON.parse(data);
+  console.log(user);
   return (
     <>
       <div className="dashboard">
@@ -76,35 +80,20 @@ function Dashboard(props) {
           >
             <Center>
               <Grid templateColumns="repeat(3, 1fr)" gap={20}>
-                <Box borderRadius="20px" w="100%" h="100" bg="red.500">
-                  <Text color="white" pl="10" pt="10">
-                    Last Login :
-                  </Text>
-                  <Text color="white" pl="3">
-                    2021/01/19 20:24
-                  </Text>
-                </Box>
-                <Image
-                  boxSize="150px"
-                  borderRadius="10px"
-                  ml="0px"
-                  objectFit="cover"
-                  src="https://bit.ly/dan-abramov"
-                  alt="Dan Abramov"
-                />
-
-                <Box w="100%" h="100" bg="blue.500" borderRadius="20px">
-                  <Text color="white" pl="1" pt="10">
-                    Password Changed :
-                  </Text>
-                  <Text color="white" pl="3">
-                    2020/08/01 20:24
-                  </Text>
-                </Box>
+                
               </Grid>
             </Center>
             <Center mt='30px'>
-              <Alert />
+            <Center>
+              <Button
+                mt="20px"
+                colorScheme="red"
+                variant="solid"
+                onClick={()=> props.history.push("/home")}
+              >
+                Go To Business
+              </Button>            
+            </Center>
             </Center>
             <Box
               borderStyle="solid"
@@ -124,8 +113,7 @@ function Dashboard(props) {
                     aria-label="Send email"
                     icon={<ArrowRightIcon />}
                   />
-                  C.P.Amarasena
-                </Text>
+                  User Type : {user.user_type}                </Text>
               </Tooltip>
             </Box>
             <Box
@@ -144,7 +132,7 @@ function Dashboard(props) {
                     aria-label="Call"
                     icon={<PhoneIcon />}
                   />
-                  +94715050200
+                  User ID : {user.user_id}
                 </Text>
               </Tooltip>
             </Box>
@@ -165,7 +153,7 @@ function Dashboard(props) {
                     aria-label="Send email"
                     icon={<EmailIcon />}
                   />
-                  chalindumalshika@gmail.com
+                  User Name : {user.username}
                 </Text>
               </Tooltip>
             </Box>
@@ -186,7 +174,7 @@ function Dashboard(props) {
                     aria-label="Send email"
                     icon={<CheckCircleIcon />}
                   />
-                  No: 96/C,Avissawella, Colombo
+                  User Account : {user.account_no}
                 </Text>
               </Tooltip>
             </Box>

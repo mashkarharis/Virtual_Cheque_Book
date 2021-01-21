@@ -10,10 +10,11 @@ import ChangePassword from './pages/ChangePassword';
 import ChangeDetails from './pages/ChangeDetails';
 import Welcome from './pages/Welcome';
 import SessionService from './Services/SessionService';
+import SignIn from './pages/signin';
 
 function App(props) {
   SessionService.clearSession();
- SessionService.initSession({"A":123});
+ //SessionService.initSession({"A":123});
   
 
   return (
@@ -22,6 +23,7 @@ function App(props) {
         <Navbar heading='onlineCheque'/>
         <Switch>
           <Route path="/welcome" exact component={Welcome} />
+          <Route path="/signin" exact component={SignIn} />
           <Route path="/home" exact component={Home} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/changePassword" component={ChangePassword} />

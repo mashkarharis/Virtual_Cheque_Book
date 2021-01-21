@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 //[2]
 router.post('/authUser', (req, res) => {
 
-    
+    console.log(req.body);
     hashservice.hashpassword(req.body.login_pwd, (hash) => {
         var authenticData = {
             "login_username": req.body.login_username,

@@ -35,6 +35,7 @@ function Welcome(props) {
                 rightIcon={<MdSend />}
                 colorScheme="red"
                 variant="solid"
+                onClick={()=> props.history.push("/SignIn")}
               >
                 Login
               </Button>            
