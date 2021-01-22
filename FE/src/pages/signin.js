@@ -83,7 +83,10 @@ export default function SignIn(props) {
 
         API_Service.getAllStaffData(id, (result) => {
           if (result !== "error" && result.data.success !== false) {
+            console.log("JSON2");
+            console.log(result.data);
             var json2 = result.data.data[0];
+            console.log(json2);
             var json3 = Object.assign(json1, json2);
             SessionService.initSession(JSON.stringify(json3));
             props.history.push('/Staff_Dashboard')

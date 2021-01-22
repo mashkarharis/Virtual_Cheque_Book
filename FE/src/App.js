@@ -13,6 +13,7 @@ import SignUp from './pages/signup';
 import Contact_Details from './pages/Contact_Details';
 import Account_Details from './pages/Account_Details';
 import Staff_Dash from './pages/Staff_Dash';
+import StaffReg from './pages/signupstaff';
 
 function App(props) {
   SessionService.clearSession();
@@ -26,6 +27,7 @@ function App(props) {
         <Switch>
           <Route path="/welcome" exact component={Welcome} />          
           <Route path="/Staff_Dashboard" component={Staff_Dash} />
+          <Route path="/StaffReg" component={StaffReg} />
           <Route path="/signin" exact component={SignIn} />
           <Route path="/signup" exact component={SignUp} />
           <Route path="/home" exact component={Home} />

@@ -10,7 +10,6 @@ import {
     Grid,
     theme,
     Center,
-    Button,
     Flex,
     Image,
     AlertDialog,
@@ -38,12 +37,13 @@ import '../components/MainSection.css';
 import Footer from '../components/Footer';
 import SessionService from '../Services/SessionService';
 import { Redirect } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 function Staff_Dash(props) {
-    //const islogged = SessionService.isAuthenticated();
-    //console.log(islogged);
+    const islogged = SessionService.isAuthenticated();
+    console.log(islogged);
 
-    /*if (!islogged) {
+    if (!islogged) {
         return (
             <Redirect
                 to={{ pathname: '/', state: { from: props.location } }}
@@ -51,10 +51,10 @@ function Staff_Dash(props) {
         );
     }
     var data = SessionService.getdata();
-    console.log("1423");
+    console.log("1555");
     var user = JSON.parse(data);
     console.log(user);
-    */
+
     return (
         <div style={{ height: `500px` }}>
 
@@ -103,13 +103,11 @@ function Staff_Dash(props) {
                     <div className="e-card-stacked">
                         <div className="e-card-header">
                             <div className="e-card-header-caption">
-                                <Link as={ReactRouterLink} to="/AdminDash">
-                                    Add New Admin
-                </Link>
+                               <Button onClick={()=>{props.history.push('/StaffReg')}}>Staff Register</Button>
                             </div>
                         </div>
                         <div className="e-card-content">
-                            This Link will get you into dashboard
+                            This Link will get you into staff register
                 </div>
                     </div>
                 </div>
