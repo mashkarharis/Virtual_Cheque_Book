@@ -62,7 +62,7 @@ router.post('/addUserCustomer', (req, res) => {
             parseInt(req.body.postal_code + ''),
             generatepin(6),
             parseInt(req.body.contact_primary + ''),
-            parseInt(req.body.contact_secondary + ''),
+            req.body.contact_secondary + '',
         ]
         console.log(customer);
         CustomerModel.addCustomer(customer).then((success) => {

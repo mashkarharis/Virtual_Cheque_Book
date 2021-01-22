@@ -66,7 +66,6 @@ function Account_Details(props) {
           p="10px"
           pt="30px"
           mt="-20px"
-          borderRadius="20px"
         >
           <Center pb="10px">
             <h1>Your Info</h1>

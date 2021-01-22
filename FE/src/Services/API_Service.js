@@ -45,7 +45,7 @@ function signup(doc, callback) {
     city:doc.getElementById('City').value+"",
     postal_code:doc.getElementById('Postal_Code').value+"",
     contact_primary:doc.getElementById('Contact_Primary').value+"",
-    contact_secondary:doc.getElementById('Contact_secondary').value+"",
+    contact_secondary:doc.getElementById('Email').value+"",
 
 
   })

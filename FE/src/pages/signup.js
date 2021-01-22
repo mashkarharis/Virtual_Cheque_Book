@@ -97,7 +97,7 @@ export default function SignUp(props) {
     { id: "City", type: "string" },
     { id: "Postal_Code", type: "number" },
     { id: "Contact_Primary", type: "number" },
-    { id: "Contact_secondary", type: "string" },
+    { id: "Email", type: "string" },
   ]
 
   const field = rows.map((row) => {

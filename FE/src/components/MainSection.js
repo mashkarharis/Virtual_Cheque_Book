@@ -16,8 +16,20 @@ import {
 import './MainSection.css';
 import { MdAddShoppingCart, MdBuild, MdCall, MdSend } from 'react-icons/md';
 import Card from './Card';
+import SessionService from '../Services/SessionService';
+import { Redirect } from 'react-router-dom';
 
-function MainSection() {
+function MainSection(props) {
+  const islogged=SessionService.isAuthenticated();
+  console.log(islogged);
+
+  if(!islogged){
+    return (
+      <Redirect
+                to={{ pathname: '/', state: { from: props.location } }}
+            />
+    );
+  }
   return (
     <>
       <div className="main-section">

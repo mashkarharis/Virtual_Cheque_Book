@@ -13,9 +13,21 @@ import {
 } from '@chakra-ui/react';
 import MainSection from '../components/MainSection';
 import Footer from '../components/Footer';
+import SessionService from '../Services/SessionService';
+import { Redirect } from 'react-router-dom';
 
 
-function Home() {
+function Home(props) {
+  const islogged=SessionService.isAuthenticated();
+  console.log(islogged);
+
+  if(!islogged){
+    return (
+      <Redirect
+                to={{ pathname: '/', state: { from: props.location } }}
+            />
+    );
+  }
   return (
     <>
      <MainSection />
