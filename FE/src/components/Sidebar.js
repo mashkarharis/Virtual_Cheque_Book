@@ -27,10 +27,13 @@ import {
 } from '@chakra-ui/react';
 import { Avatar, AvatarBadge } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import SessionService from '../Services/SessionService';
 
 // sidebar nav config
 
-function Sidebar(props) {
+function Sidebar() {
+  
+  
   return (
     <>
       <Flex
@@ -54,13 +57,10 @@ function Sidebar(props) {
           borderColor="gray.600"
           borderWidth="0px"
         >
-          <Center mb="5px" mt="10px">
-            <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-          </Center>
 
           <Box h="50px" mb="70px">
             <Center>
-              <Text color="white">C.P.Amarasena</Text>
+              <Text color="white">{JSON.parse(SessionService.getdata()).full_name+""}</Text>
             </Center>
             <Center mb="10px">
               <Badge variant="solid" colorScheme="green">
@@ -82,7 +82,7 @@ function Sidebar(props) {
               spacing={5}
               align="stretch"
             >
-              <Link as={ReactRouterLink} to="/changeDetails">
+              <Link as={ReactRouterLink} to="/Account_Details">
                 <Button
                   h="50px"
                   w="100%"
@@ -95,11 +95,11 @@ function Sidebar(props) {
                   boxShadow="dark-lg"
                   colorScheme="gray.600"
                 >
-                  <Center>Change Details</Center>
+                  <Center>Personal Details</Center>
                 </Button>
               </Link>
 
-              <Link as={ReactRouterLink} to="/changePassword">
+              <Link as={ReactRouterLink} to="/Contact_Details">
                 <Button
                   h="50px"
                   w="100%"
@@ -112,7 +112,7 @@ function Sidebar(props) {
                   boxShadow="dark-lg"
                   colorScheme="gray.600"
                 >
-                  Change Password
+                  Contact Details
                 </Button>
               </Link>
 

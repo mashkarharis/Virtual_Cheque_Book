@@ -35,7 +35,7 @@ function Welcome(props) {
                 rightIcon={<MdSend />}
                 colorScheme="red"
                 variant="solid"
-                onClick={()=> props.history.push("/SignIn")}
+                onClick={()=> props.history.push("/signin")}
               >
                 Login
               </Button>            
@@ -46,6 +46,7 @@ function Welcome(props) {
                 rightIcon={<MdSend />}
                 colorScheme="red"
                 variant="solid"
+                onClick={()=> props.history.push("/signup")}
               >
                 SignUp
               </Button>            

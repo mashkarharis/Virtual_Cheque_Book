@@ -88,7 +88,6 @@ export default function SignIn(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <h3>{err}</h3>
           <TextField
             variant="outlined"
             margin="normal"
@@ -115,6 +114,9 @@ export default function SignIn(props) {
             onChange={(e) => setPassword(e.target.value)}
             
           />
+          <Grid item xs={12}>
+              <p>{err}</p>
+            </Grid>
          
           <Button
             type="submit"

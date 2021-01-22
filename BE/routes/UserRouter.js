@@ -42,6 +42,8 @@ router.post('/authUser', (req, res) => {
 // [1]
 router.post('/addUserCustomer', (req, res) => {
 
+    console.log(req.body);
+
     hashservice.hashpassword(req.body.password, (hashed) => {
         console.log("Ok");
         var customer = [

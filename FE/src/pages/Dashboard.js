@@ -55,12 +55,11 @@ function Dashboard(props) {
   return (
     <>
       <div className="dashboard">
-        <Sidebar disable={[false, true]} />
+        <Sidebar disable={[false, true]}/>
 
         <Box
           borderStyle="solid"
           borderColor="gray.800"
-          boarderRadius="200px"
           mt={{ base: '400px', md: '10px' }}
           ml={{ base: '20px', md: '320px' }}
           pt="150px"

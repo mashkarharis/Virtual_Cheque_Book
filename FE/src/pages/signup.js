@@ -1,17 +1,9 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React, { useState } from 'react';
+import { Avatar, Button, CssBaseline, TextField, Checkbox, Link, Grid, Box, Typography, makeStyles, Container, FormControlLabel } from '@material-ui/core';
+import SessionService from '../Services/SessionService';
+import { Redirect } from 'react-router-dom';
+import API_Service from '../Services/API_Service';
+
 
 function Copyright() {
   return (
@@ -42,80 +34,111 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
+
   const classes = useStyles();
+
+  const [err, setErr] = useState('');
+
+  const islogged = SessionService.isAuthenticated();
+  console.log(islogged);
+
+  if (islogged) {
+    return (
+      <Redirect
+        to={{ pathname: '/', state: { from: props.location } }}
+      />
+    );
+  }
+
+  var submitform = () => {
+
+    API_Service.signup(document, (result) => {
+      console.log(result);
+      try{
+        console.log(result.data.data.length);
+      if (result === "error" || result.data.success === false || result.data.data.length <6) {
+          setErr("Failed Sign Up Check Values");
+        }
+        else {
+          setErr("Success we will contact you as soon as possible");
+          
+        };
+        
+      }catch(e){
+        setErr("Failed Sign Up Check Values");
+      }
+      
+
+      
+
+
+      }
+    );
+  }
+
+
+
+
+
+
+  var rows = [
+    { id: "Username", type: "string" },
+    { id: "Password", type: "password" },
+    { id: "Account_no", type: "number" },
+    { id: "Full_name", type: "string" },
+    { id: "Name_with_init", type: "string" },
+    { id: "Date_of_birth", type: "date" },
+    { id: "Account_Created_On", type: "date" },
+    { id: "NIC", type: "string" },
+    { id: "Gender", type: "string" },
+    { id: "House_no", type: "string" },
+    { id: "Street", type: "string" },
+    { id: "City", type: "string" },
+    { id: "Postal_Code", type: "number" },
+    { id: "Contact_Primary", type: "number" },
+    { id: "Contact_secondary", type: "string" },
+  ]
+
+  const field = rows.map((row) => {
+    return <Grid  key={row.id} item xs={12}>
+      <p>{row.id}</p>
+      <TextField
+        key={row.id}
+        variant="outlined"
+        required
+        fullWidth
+        id={row.id}
+        name={row.id}
+        type={row.type}
+      />
+    </Grid>
+
+  });
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
+            {field}
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
+              <p>{err}</p>
             </Grid>
           </Grid>
+
+
           <Button
-            type="submit"
+            onClick={submitform}
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
           >
             Sign Up
           </Button>
