@@ -3,7 +3,8 @@ var proxy = 'http://localhost:3084/';
 var API_Service = {
   authUser: authUser,
   getAllDataCustomer: getAllDataCustomer,
-  signup: signup
+  signup: signup,
+  getAllStaffData:getAllStaffData
 }
 
 function authUser(uname, password, callback) {
@@ -63,6 +64,21 @@ function signup(doc, callback) {
 function getAllDataCustomer(id, callback) {
   console.log(id);
   var url = proxy + 'customer/getAllData/' + id;
+  console.log(url);
+  axios.get(url)
+    .then(function (response) {
+      console.log(response);
+      callback(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback("error");
+    });
+
+}
+function getAllStaffData(id, callback) {
+  console.log(id);
+  var url = proxy + 'staff/getAllData/' + id;
   console.log(url);
   axios.get(url)
     .then(function (response) {
