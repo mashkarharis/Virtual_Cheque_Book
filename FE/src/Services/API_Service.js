@@ -10,14 +10,72 @@ var API_Service = {
   getAllDataCustomerTablePending: getAllDataCustomerTablePending,
   approve: approve,
   reject: reject,
-  getpin:getpin,
-  getAllNotificationByID:getAllNotificationByID
+  getpin: getpin,
+  getAllNotificationByID: getAllNotificationByID,
+  send_cheque: send_cheque,
+  getallchequesbyid:getallchequesbyid,
+  getAllgetReceivedCheque:getAllgetReceivedCheque,
+
+}
+
+function getAllgetReceivedCheque(id,callback){
+  var url = proxy + 'customer/getAllChequeReceived/' + id;
+  console.log(url);
+  axios.get(url)
+    .then(function (response) {
+      console.log(response);
+      callback(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback("error");
+    });
+}
+
+function getallchequesbyid(id,callback){
+  var url = proxy + 'customer/getAllChequeSent/' + id;
+  console.log(url);
+  axios.get(url)
+    .then(function (response) {
+      console.log(response);
+      callback(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback("error");
+    });
+}
+
+function send_cheque(data, callback) {
+  var sender_id = data[0];
+  var acc = data[1];
+  var amount = data[2];
+  var date = data[3];
+  var note = data[4];
+  var url = proxy + 'customer/addCheque';
+  console.log(url);
+  axios.post(url, {
+    sender_id: sender_id,
+    acc: acc,
+    amount: amount,
+    date: date,
+    note: note
+  })
+    .then(function (response) {
+      console.log(response);
+      callback(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback("error");
+    });
+
 
 }
 
 
-function getAllNotificationByID(id,callback){
-  var url = proxy + 'customer/getAllNotification/'+id;
+function getAllNotificationByID(id, callback) {
+  var url = proxy + 'customer/getAllNotification/' + id;
   console.log(url);
   axios.get(url)
     .then(function (response) {
@@ -32,7 +90,7 @@ function getAllNotificationByID(id,callback){
 }
 
 function getpin(id, callback) {
- var url = proxy + 'customer/getpin/'+id;
+  var url = proxy + 'customer/getpin/' + id;
   console.log(url);
   axios.get(url)
     .then(function (response) {
@@ -67,8 +125,8 @@ function authUser(uname, password, callback) {
     });
 
 }
-function approve(id,by,callback) {
-  var url = proxy + 'staff/approve_reject/' + id + '/"APPROVED"/'+by;
+function approve(id, by, callback) {
+  var url = proxy + 'staff/approve_reject/' + id + '/"APPROVED"/' + by;
   console.log(url);
   axios.get(url)
     .then(function (response) {
@@ -77,12 +135,12 @@ function approve(id,by,callback) {
     })
     .catch(function (error) {
       console.log(error);
-      
+
       callback(error);
     });
 }
-function reject(id,by,callback) {
-  var url = proxy + 'staff/approve_reject/' + id + '/"REJECTED"/'+by;
+function reject(id, by, callback) {
+  var url = proxy + 'staff/approve_reject/' + id + '/"REJECTED"/' + by;
   console.log(url);
   axios.get(url)
     .then(function (response) {

@@ -50,6 +50,7 @@ function MainSection(props) {
               rightIcon={<MdSend />}
               colorScheme="red"
               variant="solid"
+              onClick={()=> props.history.push("/chequebuilder")}
             >
               Click Here!
             </Button>

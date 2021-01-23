@@ -56,11 +56,10 @@ function Card(props) {
             <Box
               mt="1"
               fontWeight="semibold"
-              as="h4"
               lineHeight="tight"
               isTruncated
             >
-              <Heading as="h5" size="2xl">
+              <Heading  size="2xl">
                 {props.type}
               </Heading>
             </Box>

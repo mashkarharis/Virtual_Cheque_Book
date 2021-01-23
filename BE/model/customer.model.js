@@ -9,9 +9,24 @@ var CustomerModel = {
     updateCustomerPinForget,
     updateCustomerPin,
     getCustomersPending,
-    approve_reject
+    approve_reject,
+    getCustomeridfromacc
 }
 
+function getCustomeridfromacc(acc) {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT customer_id from Customer where account_no=?',acc, (error, rows, fields) => {
+            if (!!error) {
+                dbFunc.connectionRelease;
+                reject(false);
+            } else {
+
+                dbFunc.connectionRelease;
+                resolve(rows[0]);
+            }
+        });
+    });
+}
 function getCustomers() {
     return new Promise((resolve, reject) => {
         db.query('SELECT * FROM Customer', (error, rows, fields) => {

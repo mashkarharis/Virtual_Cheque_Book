@@ -103,6 +103,31 @@ function Dashboard(props) {
                 Fogot Pin
               </Button>            
             </Center>
+
+            <Center>
+              <Button
+                mt="20px"
+                colorScheme="red"
+                variant="solid"
+                onClick={()=> props.history.push("/getpaid")}
+              >
+                Get Paid
+              </Button>            
+            </Center>
+
+
+
+            <Center>
+              <Button
+                mt="20px"
+                colorScheme="red"
+                variant="solid"
+                onClick={()=> props.history.push("/chequelist")}
+              >
+                Cheque Send By Me
+              </Button>            
+            </Center>
+
             <Center>
               <Button
                 mt="20px"

@@ -84,9 +84,11 @@ function getChequesByReceiver(id) {
 }
 
 function addCheque(cheque) {
+    console.log("---"+cheque);
     //TODO: set "Cheque" attribute appropriate to the data passing -- checkout ../document/add_cheque.txt 
     return new Promise((resolve,reject) => {
-        db.query(`CALL add_cheque(?,?,?,?,?)`,cheque,(error,rows,fields)=>{
+        var querystring="insert into Cheque (sender_id,receiver_id,amount,status,date,note) values (?,?,?,?,?,?)"
+        db.query(querystring,cheque,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);

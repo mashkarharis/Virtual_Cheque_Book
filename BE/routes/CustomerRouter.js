@@ -44,9 +44,9 @@ router.get('/getpin/:id', (req, res) => {
             CustomerModel.getCustomerById(id)
                 .then((success) => {
                     console.log(success);
-                    var day=dateFormat(new Date(), "yyyy-mm-dd");
+                    var day = dateFormat(new Date(), "yyyy-mm-dd");
                     console.log(day);
-                    NotificationModel.addNotification(day, id, "Pin Reset Success","You New Pin is "+pin)
+                    NotificationModel.addNotification(day, id, "Pin Reset Success", "You New Pin is " + pin)
                         .then((success) => {
                             res.json({
                                 "success": true,
@@ -116,28 +116,46 @@ router.post('/addCheque', (req, res) => {
 
     var cheque_data = [
         req.body.sender_id,
-        req.body.receiver_id,
-        null,
+        req.body.acc,
+        req.body.note,
         parseFloat(req.body.amount),
         req.body.date,
     ]
-    console.log(cheque_data);
-    ChequeModel.addCheque(cheque_data).then((success) => {
-        res.json({
-            "success": true,
-            "data": success
-        });
-        res.end();
-    }).catch((failed) => {
-        res.json({
-            "success": false,
-            "data": failed
-        });
-        res.end();
-    });
+    CustomerModel.getCustomeridfromacc(cheque_data[1])
+        .then((resp) => {
+            var receiver_id = resp.customer_id;
+            console.log(receiver_id);
+            var datares = [
+                parseInt(cheque_data[0]),
+                receiver_id,
+                cheque_data[3],
+                "PENDING",
+                cheque_data[4],
+                cheque_data[2],
+            ]
+            console.log(datares);
+            ChequeModel.addCheque(datares)
+                .then((success) => {
+                    res.json({
+                        "success": true,
+                        "data": success
+                    });
+                }).catch((failed) => {
+                    res.json({
+                        "success": false,
+                        "data": failed
+                    });
+                });
 
 
-}
+
+        }).catch((failed) => {
+            res.json({
+                "success": false,
+                "data": failed
+            });
+        });
+    }
 );
 //[7]
 router.get('/getAllChequeReceived/:receiver_id', (req, res) => {
