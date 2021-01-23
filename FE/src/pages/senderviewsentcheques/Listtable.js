@@ -31,7 +31,7 @@ export const Listtable = (props) => {
   if (firstload) {
     API_Service.getallchequesbyid(JSON.parse(SessionService.getdata()).user_id, (res) => {
       console.log(res.data.data);
-      SETMOCK_DATA(res.data.data.s.s);
+      SETMOCK_DATA(res.data.data);
       setFirstload(false);
     });
   }

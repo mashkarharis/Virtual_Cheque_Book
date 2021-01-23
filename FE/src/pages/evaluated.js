@@ -52,7 +52,7 @@ function Evaluated(props) {
     }
     const pas = (chid) => {
         var eid=JSON.parse(SessionService.getdata()).user_id;
-        API_Service.pass(chid,eid, (res) => {
+        API_Service.pas(chid,eid, (res) => {
             load();
         });
     }
