@@ -36,12 +36,15 @@ function getNotiByIdWStatus(id) {
     });  
 }
 
-function addNotification(notification) {
+function addNotification(date,id,title,message) {
     //TODO: set "Notification" attribute appropriate to the data passing -- checkout ../document/add_notification.txt 
+    var val=[date,id,title,message]
     return new Promise((resolve,reject) => {
-        db.query(`CALL add_notification(?,?,?,?)`,[notification],(error,rows,fields)=>{
+        console.log(val);
+        db.query(`CALL add_notification(?,?,?,?)`,val,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
+                
                 reject(error);
             } else {
                 dbFunc.connectionRelease;

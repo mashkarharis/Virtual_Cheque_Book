@@ -1,5 +1,6 @@
 // Express Initialize
 const express=require('express');
+const CustomerModel = require('../model/customer.model');
 const EmployeeModel = require('../model/employee.model');
 const hashservice = require('../services/hashservice');
 const router=express.Router()
@@ -66,6 +67,56 @@ router.post('/addUserStaff', (req, res) => {
 
 
 });
+
+
+router.get('/getAllData', (req, res) => {
+    CustomerModel.getCustomers().then((success) => {
+        res.json({
+            "success": true,
+            "data": success
+        });
+    }).catch((failed) => {
+        res.json({
+            "success": false,
+            "data": failed
+        });
+    });
+}
+);
+
+router.get('/getAllDataPending', (req, res) => {
+    CustomerModel.getCustomersPending().then((success) => {
+        res.json({
+            "success": true,
+            "data": success
+        });
+    }).catch((failed) => {
+        res.json({
+            "success": false,
+            "data": failed
+        });
+    });
+}
+);
+
+router.get('/approve_reject/:id/:to', (req, res) => {
+    var to = req.params.to;
+    var id = req.params.id;
+    console.log(to);
+    console.log(id);
+    CustomerModel.approve_reject(to,id).then((success) => {
+        res.json({
+            "success": true,
+            "data": success
+        });
+    }).catch((failed) => {
+        res.json({
+            "success": false,
+            "data": failed
+        });
+    });
+}
+);
 
 
 

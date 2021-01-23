@@ -8,7 +8,7 @@ const NotificationModel = require('../model/notification.model');
 const router = express.Router()
 const hashservice = require('../services/hashservice');
 const generatepin = require('../services/pingenerationservice');
-
+var dateFormat = require('dateformat');
 
 router.get('/', (req, res) => {
     res.send("Customer Accessed !!!")
@@ -31,6 +31,51 @@ router.get('/getAllData/:id', (req, res) => {
     });
 }
 );
+
+router.get('/getpin/:id', (req, res) => {
+    var id = req.params.id;
+    console.log("PIN RESET " + id);
+    var pin = generatepin(6);
+    console.log(pin);
+
+    CustomerModel.updateCustomerPin(id, pin)
+        .then((success) => {
+            console.log("PIN RESET " + id + "--" + pin);
+            CustomerModel.getCustomerById(id)
+                .then((success) => {
+                    console.log(success);
+                    var day=dateFormat(new Date(), "yyyy-mm-dd");
+                    console.log(day);
+                    NotificationModel.addNotification(day, id, "Pin Reset Success","You New Pin is "+pin)
+                        .then((success) => {
+                            res.json({
+                                "success": true,
+                                "data": success
+                            });
+                        })
+                        .catch((failed) => {
+                            res.json({
+                                "success": false,
+                                "data": failed
+                            });
+                        });
+                })
+                .catch((failed) => {
+                    res.json({
+                        "success": false,
+                        "data": failed
+                    });
+                });
+        })
+        .catch((failed) => {
+            res.json({
+                "success": false,
+                "data": failed
+            });
+        });
+});
+
+
 //[4]
 router.get('/getAllNotification/:id', (req, res) => {
     var id = req.params.id;

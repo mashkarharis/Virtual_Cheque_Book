@@ -82,14 +82,12 @@ function Staff_Dash(props) {
                     <img src="https://www.freevector.com/uploads/vector/preview/499/FreeVector-Speed-Meter-1.jpg" alt="Sample" style={{ height: `180px` }} />
                     <div className="e-card-stacked">
                         <div className="e-card-header">
-                            <div className="e-card-header-caption">
-                                <Link as={ReactRouterLink} to="/StaffDashboard">
-                                    Dashboard
-                </Link>
+                        <div className="e-card-header-caption">
+                               <Button onClick={()=>{props.history.push('/Approve')}}>Approve</Button>
                             </div>
                         </div>
                         <div className="e-card-content">
-                            This Link will get you into dashboard
+                            Approve_or_Reject_userAccounts
                 </div>
                     </div>
                 </div>
@@ -112,7 +110,7 @@ function Staff_Dash(props) {
                     </div>
                 </div>
             </div>
-
+            
 
 
             <div style={{ margin: `50px`, display: `flex`, flexDirection: `row`, justifyContent: `center` }}>
@@ -121,13 +119,11 @@ function Staff_Dash(props) {
                     <div className="e-card-stacked">
                         <div className="e-card-header">
                             <div className="e-card-header-caption">
-                                <Link as={ReactRouterLink} to="/StaffDashboard">
-                                    Dashboard
-                </Link>
+                            <Button onClick={()=>{props.history.push('/AllCustomers')}}>All Customers</Button>
                             </div>
                         </div>
                         <div className="e-card-content">
-                            This Link will get you into dashboard
+                            Get All Customers
                 </div>
                     </div>
                 </div>
@@ -151,6 +147,9 @@ function Staff_Dash(props) {
                     </div>
                 </div>
             </div>
+
+
+            
 
         </div>
 

@@ -14,6 +14,9 @@ import Contact_Details from './pages/Contact_Details';
 import Account_Details from './pages/Account_Details';
 import Staff_Dash from './pages/Staff_Dash';
 import StaffReg from './pages/signupstaff';
+import Approve from './pages/approve';
+import AllCustomers from './pages/allcustomers';
+import FogotPin from './pages/FogotPin';
 
 function App(props) {
   SessionService.clearSession();
@@ -25,8 +28,11 @@ function App(props) {
       <ChakraProvider>
         <Navbar heading='onlineCheque'/>
         <Switch>
-          <Route path="/welcome" exact component={Welcome} />          
+          <Route path="/welcome" exact component={Welcome} />        
+          <Route path="/FogotPin" exact component={FogotPin} />   
           <Route path="/Staff_Dashboard" component={Staff_Dash} />
+          <Route path="/AllCustomers" component={AllCustomers} />
+          <Route path="/Approve" component={Approve} />
           <Route path="/StaffReg" component={StaffReg} />
           <Route path="/signin" exact component={SignIn} />
           <Route path="/signup" exact component={SignUp} />

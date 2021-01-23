@@ -93,6 +93,16 @@ function Dashboard(props) {
                 Go To Business
               </Button>            
             </Center>
+            <Center>
+              <Button
+                mt="20px"
+                colorScheme="red"
+                variant="solid"
+                onClick={()=> props.history.push("/FogotPin")}
+              >
+                Fogot Pin
+              </Button>            
+            </Center>          
             </Center>
             <Box
               borderStyle="solid"
