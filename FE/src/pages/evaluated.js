@@ -24,7 +24,7 @@ import { useState } from 'react';
 
 
 
-function Getpaid(props) {
+function Evaluated(props) {
     const [firstload, setFirstload] = useState(true);
     const [reqlist, setReqlist] = useState([]);
     const islogged = SessionService.isAuthenticated();
@@ -39,10 +39,11 @@ function Getpaid(props) {
     }
 
     const load = () => {
-        API_Service.getAllgetReceivedCheque(JSON.parse(SessionService.getdata()).user_id, (res) => {
+        API_Service.checktoEval((res) => {
             if (res === 'ERROR') {
                 console.log('-----')
             } else {
+                console.log(res.data.data);
                 setReqlist(res.data.data)
             }
 
@@ -100,14 +101,15 @@ function Getpaid(props) {
 
                             <TableCell align="right">Date</TableCell>
                             <TableCell align="right">Note</TableCell>
-                            <TableCell align="right">Action</TableCell>
+                            <TableCell align="right">PASS</TableCell>
+                            <TableCell align="right">RETURN</TableCell>
 
                         </TableRow>
                     </TableHead>
 
                     <TableBody>
                         {reqlist.map((row) => {
-                            if (row.status == "PENDING") {
+                            if (row.status == "EVALUATING") {
                                 return (
                                     <TableRow key={row.cheque_id}>
 
@@ -117,19 +119,12 @@ function Getpaid(props) {
 
                                         <TableCell align="right">{row.date}</TableCell>
                                         <TableCell align="right">{row.note}</TableCell>
-                                        {                                      
+                                       
+                                        <TableCell align="right"><Button disabled={false} color="green" onClick={() => { getpaid(row.cheque_id) }} >PASS</Button></TableCell>
+                                        <TableCell align="right"><Button disabled={false} color="red" onClick={() => { refund(row.cheque_id) }}>RETURN</Button></TableCell>
+                                       
                                         
                                         
-                                        (+new Date(row.date)<=+new Date())?<div>
-                                            <TableCell align="right"><Button color="green" onClick={() => { getpaid(row.cheque_id) }} >Get Paid</Button></TableCell>
-                                            <TableCell align="right"><Button color="red" onClick={() => { refund(row.cheque_id) }}>Refund</Button></TableCell>
-                                        </div>:<div>
-                                        <TableCell align="right"><Button disabled={true} color="green" onClick={() => { getpaid(row.cheque_id) }} >Get Paid</Button></TableCell>
-                                        <TableCell align="right"><Button disabled={true} color="red" onClick={() => { refund(row.cheque_id) }}>Refund</Button></TableCell>
-                                        </div>
-                                        
-                                        
-                                        }
                                         
 
 
@@ -145,4 +140,4 @@ function Getpaid(props) {
     );
 }
 
-export default Getpaid;
+export default Evaluated;

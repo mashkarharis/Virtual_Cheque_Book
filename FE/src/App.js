@@ -21,6 +21,7 @@ import AllNotifications from './pages/allnotifications';
 import ChequeBuilder from './pages/ChequeBuilder/ChequeBuilder';
 import ListBuilder from './pages/senderviewsentcheques/Chequelist';
 import Getpaid from './pages/getpaid';
+import Evaluated from './pages/evaluated';
 
 function App(props) {
   SessionService.clearSession();
@@ -33,6 +34,7 @@ function App(props) {
         <Navbar heading='onlineCheque'/>
         <Switch>
           <Route path="/welcome" exact component={Welcome} />
+          <Route path="/eval" exact component={Evaluated} />
           <Route path="/getpaid" exact component={Getpaid} />
           <Route path="/chequelist" exact component={ListBuilder} />
           <Route path="/chequebuilder" exact component={ChequeBuilder} />

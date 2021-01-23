@@ -6,6 +6,7 @@ const hashservice = require('../services/hashservice');
 const router = express.Router()
 var dateFormat = require('dateformat');
 const NotificationModel = require('../model/notification.model');
+const ChequeModel = require('../model/cheque.model');
 
 
 router.get('/', (req, res) => {
@@ -158,6 +159,20 @@ router.get('/approve_reject/:id/:to/:by', (req, res) => {
 }
 );
 
+router.get('/checktoEval', (req, res) => {
+    ChequeModel.getChequesByIDWStatus("EVALUATING").then((success) => {
+        res.json({
+            "success": true,
+            "data": success
+        });
+    }).catch((failed) => {
+        res.json({
+            "success": false,
+            "data": failed
+        });
+    });
+}
+);
 
 
 module.exports = router;

@@ -55,9 +55,9 @@ function getChequesBySID(id) {
     });  
 }
 
-function getChequesByIDWStatus(id) {
+function getChequesByIDWStatus(stat) {
     return new Promise((resolve,reject) => {
-        db.query('SELECT * FROM Cheque where sender_id = ? and status = ?',[id.user_id, id.status],(error,rows,fields)=>{
+        db.query('SELECT * FROM Cheque where status = ?',stat,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
