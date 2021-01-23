@@ -174,6 +174,22 @@ router.get('/checktoEval', (req, res) => {
 }
 );
 
+router.get('/checktopass/:chid/:eid', (req, res) => {
+    var chid = req.params.chid;
+    var eid = req.params.eid;
+    ChequeModel.setChecktopass(chid,eid).then((success) => {
+        res.json({
+            "success": true,
+            "data": success
+        });
+    }).catch((failed) => {
+        res.json({
+            "success": false,
+            "data": failed
+        });
+    });
+}
+);
 
 module.exports = router;
 

@@ -50,13 +50,15 @@ function Evaluated(props) {
         });
 
     }
-    const getpaid = (chid) => {
-        API_Service.getpaid(chid, (res) => {
+    const pas = (chid) => {
+        var eid=JSON.parse(SessionService.getdata()).user_id;
+        API_Service.pass(chid,eid, (res) => {
             load();
         });
     }
-    const refund = (chid) => {
-        API_Service.refund(chid, (res) => {
+    const ret = (chid) => {
+        var eid=JSON.parse(SessionService.getdata()).user_id;
+        API_Service.ret(chid,eid, (res) => {
             load();
         });
     }
@@ -96,6 +98,7 @@ function Evaluated(props) {
                         <TableRow>
                             <TableCell align="right">Cheque ID</TableCell>
                             <TableCell align="right">Sender ID</TableCell>
+                            <TableCell align="right">Receiver ID</TableCell>
                             <TableCell align="right">Amount</TableCell>
 
 
@@ -115,13 +118,14 @@ function Evaluated(props) {
 
                                         <TableCell align="right">{row.cheque_id}</TableCell>
                                         <TableCell align="right">{row.sender_id}</TableCell>
+                                        <TableCell align="right">{row.receiver_id}</TableCell>
                                         <TableCell align="right">{row.amount}</TableCell>
 
                                         <TableCell align="right">{row.date}</TableCell>
                                         <TableCell align="right">{row.note}</TableCell>
                                        
-                                        <TableCell align="right"><Button disabled={false} color="green" onClick={() => { getpaid(row.cheque_id) }} >PASS</Button></TableCell>
-                                        <TableCell align="right"><Button disabled={false} color="red" onClick={() => { refund(row.cheque_id) }}>RETURN</Button></TableCell>
+                                        <TableCell align="right"><Button disabled={false} color="green" onClick={() => { pas(row.cheque_id) }} >PASS</Button></TableCell>
+                                        <TableCell align="right"><Button disabled={false} color="red" onClick={() => { ret(row.cheque_id) }}>RETURN</Button></TableCell>
                                        
                                         
                                         

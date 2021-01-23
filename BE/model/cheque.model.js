@@ -10,7 +10,23 @@ var ChequeModel = {
     addCheque,
     updateChequeToPass,
     updateChequeToEval,
-    updateChequeToRefund
+    updateChequeToRefund,
+    setChecktopass
+}
+
+
+function setChecktopass(chid,eid){
+    return new Promise((resolve,reject) => {
+        db.query('UPDATE Cheque SET status=? and evaluator_id=? WHERE cheque_id=?',["APPROVED",eid,chid],(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+       });
+    });  
 }
 
 function getCheques() {

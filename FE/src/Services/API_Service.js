@@ -17,7 +17,8 @@ var API_Service = {
   getAllgetReceivedCheque:getAllgetReceivedCheque,
   getpaid:getpaid,
   refund:refund,
-  checktoEval,checktoEval
+  checktoEval:checktoEval,
+  pas:pas
 
 
 }
@@ -50,6 +51,20 @@ function getpaid(chid,callback){
 
 function refund(chid,callback){
   var url = proxy + 'customer/updateChequeToRefund/' + chid;
+  console.log(url);
+  axios.get(url)
+    .then(function (response) {
+      console.log(response);
+      callback(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback("error");
+    });
+}
+
+function pas(chid,eid,callback){
+  var url = proxy + 'staff/checktopass/'+chid+"/"+eid;
   console.log(url);
   axios.get(url)
     .then(function (response) {
