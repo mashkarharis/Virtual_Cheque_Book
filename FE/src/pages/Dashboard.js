@@ -102,6 +102,16 @@ function Dashboard(props) {
               >
                 Fogot Pin
               </Button>            
+            </Center>
+            <Center>
+              <Button
+                mt="20px"
+                colorScheme="red"
+                variant="solid"
+                onClick={()=> props.history.push("/AllNotifications")}
+              >
+                Notifications
+              </Button>            
             </Center>          
             </Center>
             <Box

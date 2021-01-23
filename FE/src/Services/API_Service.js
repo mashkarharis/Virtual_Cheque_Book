@@ -10,12 +10,26 @@ var API_Service = {
   getAllDataCustomerTablePending: getAllDataCustomerTablePending,
   approve: approve,
   reject: reject,
-  getpin:getpin
+  getpin:getpin,
+  getAllNotificationByID:getAllNotificationByID
 
 }
 
 
+function getAllNotificationByID(id,callback){
+  var url = proxy + 'customer/getAllNotification/'+id;
+  console.log(url);
+  axios.get(url)
+    .then(function (response) {
+      console.log(response);
+      callback(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback("error");
+    });
 
+}
 
 function getpin(id, callback) {
  var url = proxy + 'customer/getpin/'+id;
@@ -53,8 +67,8 @@ function authUser(uname, password, callback) {
     });
 
 }
-function approve(id,callback) {
-  var url = proxy + 'staff/approve_reject/' + id + '/"APPROVED"';
+function approve(id,by,callback) {
+  var url = proxy + 'staff/approve_reject/' + id + '/"APPROVED"/'+by;
   console.log(url);
   axios.get(url)
     .then(function (response) {
@@ -67,8 +81,8 @@ function approve(id,callback) {
       callback(error);
     });
 }
-function reject(id,callback) {
-  var url = proxy + 'staff/approve_reject/' + id + '/"REJECTED"';
+function reject(id,by,callback) {
+  var url = proxy + 'staff/approve_reject/' + id + '/"REJECTED"/'+by;
   console.log(url);
   axios.get(url)
     .then(function (response) {

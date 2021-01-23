@@ -50,12 +50,12 @@ function Approve(props) {
 
     }
     const approve=(id)=>{
-        API_Service.approve(id,(res)=>{
+        API_Service.approve(id,JSON.parse(SessionService.getdata()).user_id,(res)=>{
             load();            
         });
     }
     const reject=(id)=>{
-        API_Service.reject(id,(res)=>{
+        API_Service.reject(id,JSON.parse(SessionService.getdata()).user_id,(res)=>{
             load();            
         });
     }

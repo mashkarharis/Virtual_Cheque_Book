@@ -41,6 +41,7 @@ function addNotification(date,id,title,message) {
     var val=[date,id,title,message]
     return new Promise((resolve,reject) => {
         console.log(val);
+        
         db.query(`CALL add_notification(?,?,?,?)`,val,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
