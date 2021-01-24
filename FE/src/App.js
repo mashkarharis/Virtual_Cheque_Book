@@ -23,6 +23,7 @@ import ListBuilder from './pages/senderviewsentcheques/Chequelist';
 import Getpaid from './pages/getpaid';
 import Evaluated from './pages/evaluated';
 import Evaledbyme from './pages/evalcheque/Chequelist';
+import Admin_Dashboard from './pages/admin_dash';
 
 function App(props) {
   SessionService.clearSession();
@@ -42,7 +43,7 @@ function App(props) {
           <Route path="/chequebuilder" exact component={ChequeBuilder} />
           <Route path="/AllNotifications" exact component={AllNotifications} />        
           <Route path="/FogotPin" exact component={FogotPin} />   
-          <Route path="/Staff_Dashboard" component={Staff_Dash} />
+          <Route path="/Staff_Dashboard" component={Admin_Dashboard} />
           <Route path="/AllCustomers" component={AllCustomers} />
           <Route path="/Approve" component={Approve} />
           <Route path="/StaffReg" component={StaffReg} />

@@ -81,14 +81,10 @@ function Navbar(props) {
             Home
           </Link>
         </MenuItems>
-        <MenuItems>Help me</MenuItems>
         <MenuItems>
-          {islogged ?
-            <Link as={ReactRouterLink} to="/Dashboard">
-              Dashboard
-          </Link> : <></>
-          }
+        <a target="_blank" href="https://drive.google.com/file/d/1AdNMc9rVaYs0j5dFtpDZk72LFPk_h6Hv/view?usp=sharing">About Us</a>
         </MenuItems>
+        
         
       </Box>
 

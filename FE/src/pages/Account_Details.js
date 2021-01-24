@@ -55,15 +55,9 @@ function Account_Details(props) {
   var user=JSON.parse(data);
   console.log(user);
   return (
-    <Grid
-    container
-    direction="row"
-    justify="space-around"
-    alignItems="center"
-  >
-     <Sidebar disable={[false, true]}/>
-      <div >
-       
+    <>
+      <div className="dashboard">
+        <Sidebar disable={[false, true]}/>
 
         <Box
           borderStyle="solid"
@@ -178,7 +172,7 @@ function Account_Details(props) {
           </Box>
         </Box>
       </div>
-    </Grid>
+    </>
   );
 }
 

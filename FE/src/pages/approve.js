@@ -15,7 +15,7 @@ import MainSection from '../components/MainSection';
 import Footer from '../components/Footer';
 import SessionService from '../Services/SessionService';
 import { Redirect } from 'react-router-dom';
-import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer,TablePagination, TableHead, TableRow, withStyles } from '@material-ui/core';
 import API_Service from '../Services/API_Service';
 
 
@@ -28,6 +28,28 @@ function Approve(props) {
     const [reqlist, setReqlist] = useState([]);
     const islogged = SessionService.isAuthenticated();
     console.log(islogged);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const useStyles = makeStyles({
+        root: {
+          width: '90%',
+        },
+        container: {
+          maxHeight: 400,
+        },
+        divi:{
+          backgroundImage: "url(" + "https://images.unsplash.com/photo-1476842634003-7dcca8f832de?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" + ")",
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+          height: 700
+        },
+        
+      });
+
+
+      const classes = useStyles();
+
 
     if (!islogged) {
         return (
@@ -70,10 +92,41 @@ function Approve(props) {
 
     console.log(reqlist);
    
+    const StyledTableCell = withStyles((theme) => ({
+        head: {
+          backgroundColor: theme.palette.common.black,
+          color: theme.palette.common.white,
+        },
+        body: {
+          fontSize: 14,
+        },
+      }))(TableCell);
+      
+      const StyledTableRow = withStyles((theme) => ({
+        root: {
+          '&:nth-of-type(odd)': {
+            backgroundColor: "darkgrey",
+          },
+          '&:nth-of-type(even)': {
+            backgroundColor: "lightgrey",
+          }
+        },
+      }))(TableRow);
+      
+    
+      const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+      };
+    
+      const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+      };
     
 
+
     return (
-        <>
+        <div className={classes.divi}>
 
             <div style={{ margin: `50px`, display: `flex`, flexDirection: `row`, justifyContent: `center` }}>
                 <div className="e-card e-card-horizontal" style={{ width: `400px` }}>
@@ -89,10 +142,13 @@ function Approve(props) {
                 </div>
             </div>
             
-            <TableContainer component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
+            <Center>
+        <Paper className={classes.root}>
+        
+            <TableContainer className={classes.container}>
+                <Table  stickyHeader aria-label="sticky table">
+                    <TableHead className={classes.head}>
+                        <StyledTableRow>
                             <TableCell>Customer ID</TableCell>
                             <TableCell align="right">Account No</TableCell>
                             <TableCell align="right">NIC</TableCell>
@@ -110,12 +166,12 @@ function Approve(props) {
                             <TableCell align="right">Approve</TableCell>
                              <TableCell align="right">Reject</TableCell>
 
-                        </TableRow>
+                        </StyledTableRow>
                     </TableHead>
                     
                     <TableBody>
-                        {reqlist.map((row) => (
-                            <TableRow key={row.customer_id}>
+                        {reqlist.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                            <StyledTableRow key={row.customer_id}>
                                
                                 <TableCell align="right">{row.customer_id}</TableCell>
                                 <TableCell align="right">{row.account_no}</TableCell>
@@ -134,13 +190,25 @@ function Approve(props) {
 
                                 
 
-                            </TableRow>
+                            </StyledTableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
+            <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={reqlist.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
+            </Paper>
+      </Center>
 
-        </>
+
+        </div>
     );
 }
 

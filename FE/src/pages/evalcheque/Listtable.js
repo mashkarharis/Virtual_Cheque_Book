@@ -1,33 +1,50 @@
 import React, { useMemo, useState } from 'react'
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
-//import MOCK_DATA from './MOCK_DATA.json'
-import { format } from 'date-fns';
-// import {COLUMNS} from './columns'
-// import { MdBuild , MdCall } from "react-icons/md"
-import { ArrowRightIcon, ArrowLeftIcon, AddIcon } from '@chakra-ui/icons'
+import { format } from 'date-fns'; import { ArrowRightIcon, ArrowLeftIcon, AddIcon } from '@chakra-ui/icons'
 import '../../components/Chequelist/table.css'
 import { GlobalFilter } from '../../components/Cheq/GlobalFilter'
 import {
   Icon,
   Text,
   Box,
-  MdBuild,
-  Button,
-  Modal,
-  PhoneIcon,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  Center,
 } from "@chakra-ui/react"
 import API_Service from '../../Services/API_Service';
 import SessionService from '../../Services/SessionService';
+import { Button, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, withStyles } from '@material-ui/core';
 
 export const Listtable = (props) => {
   // const { isOpen, onOpen, onClose } = useDisclosure()
   const [MOCK_DATA, SETMOCK_DATA] = useState([]);
   const [firstload, setFirstload] = useState(true);
+
+
+
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const useStyles = makeStyles({
+    root: {
+      width: '90%',
+    },
+    container: {
+      maxHeight: 400,
+    },
+    divi: {
+      backgroundImage: "url(" + "https://images.unsplash.com/photo-1566850292484-3fde9b385345?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80" + ")",
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      height: 700
+    },
+
+  });
+
+
+  const classes = useStyles();
+
+
+
   if (firstload) {
     API_Service.getallchequesbysid(JSON.parse(SessionService.getdata()).user_id, (res) => {
       console.log(res.data.data);
@@ -81,38 +98,42 @@ export const Listtable = (props) => {
       // cell:<IconButton aria-label="Search database" icon={<SearchIcon />} />
     }
   ]
+  const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: "darkgrey",
+      },
+      '&:nth-of-type(even)': {
+        backgroundColor: "lightgrey",
+      }
+    },
+  }))(TableRow);
 
 
-  const columns = useMemo(() => COLUMNS, [])
-  const data = MOCK_DATA
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    // footerGroups,
-    // rows,
-    page,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    state,
-    setPageSize,
-    prepareRow,
-    // state,
-    setGlobalFilter,
-  } = useTable({ columns, data }, useGlobalFilter, useSortBy, usePagination)
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
-  const { globalFilter, pageIndex, pageSize } = state
-  //   const {pageIndex} = state
+
 
   return (
+    <div className={classes.divi}>
 
-
-
-    <>
       <div style={{ margin: `50px`, display: `flex`, flexDirection: `row`, justifyContent: `center` }}>
         <div className="e-card e-card-horizontal" style={{ width: `400px` }}>
           <img src="" alt="Sample" style={{ height: `80px` }} />
@@ -126,61 +147,61 @@ export const Listtable = (props) => {
           </div>
         </div>
       </div>
-      {/* <IconButton aria-label="Search database" icon={<SearchIcon />} /> */}
-      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      <table {...getTableProps()}>
-        <thead>
-          {
-            headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {
-                  headerGroup.headers.map(column => (
-                    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                      { column.render('Header')}
-                      <span>{column.isSorted ? (column.isSortedDesc ? '<' : '>') : ''}</span>
-                    </th>
-                  ))}
+      <Center>
+        <Paper className={classes.root}>
 
-              </tr>
-            ))}
-        </thead>
-        {/* Apply the table body props */}
-        <tbody {...getTableBodyProps()}>
-          {
-            data.map((row)=>{
-              return(
-              <tr>
-                <td>{row.cheque_id}</td>
-                <td>{row.sender_id}</td>
-                <td>{row.receiver_id}</td>
-                <td>{row.evaluator_id}</td>
-                <td>{row.amount}</td>
-                <td>{row.status}</td>
-                <td>{row.date}</td>
-                <td>{row.note}</td>
-              </tr>);
-            })
-          }
-        </tbody>
-      </table>
-      <div w={[300, 400, 560]} style={{ margin: "auto", textAlign: "right" }}>
-        <Box bg="#ffffff" w={[300, 400, 200]} p={2} color="black" border="1px" borderColor="gray.200" borderRadius="10px">
-          <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>{[10, 20, 30].map(pageSize => (
-            <option key={pageSize} value={pageSize}>Show {pageSize}</option>
-          ))}</select>
-          <span>Page{' '}<strong>{pageIndex + 1} of {pageOptions.length}</strong>{' '}</span>
-        </Box>
-      </div>
+          <TableContainer className={classes.container}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead className={classes.head}>
+                <StyledTableRow>
+                  <TableCell align="right">Cheque ID</TableCell>
+                  <TableCell align="right">Sender ID</TableCell>
+                  <TableCell align="right">Receiver ID</TableCell>
+                  <TableCell align="right">Amount</TableCell>
+                  <TableCell align="right">Status</TableCell>
 
-      <div style={{ margin: "auto", textAlign: "center" }}>
-        <Box bg="#ffffff" mx="auto" w={[250, 400, 300]} p={2} color="black" border="1px" borderColor="gray.200">
 
-          <button onClick={() => previousPage()} disabled={!canPreviousPage}>Prev<Icon as={ArrowLeftIcon} w={8} h={8} m={4} color="#4CAF50" /></button>
-          <button onClick={() => nextPage()} disabled={!canNextPage}><Icon as={ArrowRightIcon} w={8} h={8} m={4} color="#4CAF50" />Next</button>
-        </Box>
-      </div>
-    </>
-  )
+                  <TableCell align="right">Date</TableCell>
+                  <TableCell align="right">Note</TableCell>
+
+                </StyledTableRow>
+              </TableHead>
+
+              <TableBody>
+                {MOCK_DATA.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                  return(<StyledTableRow key={row.cheque_id}>
+
+                    <TableCell align="right">{row.cheque_id}</TableCell>
+                    <TableCell align="right">{row.sender_id}</TableCell>
+                    <TableCell align="right">{row.receiver_id}</TableCell>
+                    <TableCell align="right">{row.amount}</TableCell>
+
+                    <TableCell align="right">{row.status}</TableCell>
+
+                    <TableCell align="right">{row.date}</TableCell>
+                    <TableCell align="right">{row.note}</TableCell>
+
+
+
+
+                  </StyledTableRow>);
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={MOCK_DATA.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </Center>
+    </div>
+  );
 }
 // export default Listtable;
 
