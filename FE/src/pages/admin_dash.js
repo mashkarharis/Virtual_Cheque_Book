@@ -42,7 +42,7 @@ function Admin_Dashboard(props) {
           </Center>
           <Center>
             <Text pt="30px" fontSize="5xl" color="white">
-              Handle Members
+              Let Us Serve Customers
             </Text>
           </Center>
          

@@ -20,6 +20,13 @@ import {
   } from "@chakra-ui/react"
 
 const Form = (props)=>{
+  var mindate=new Date();
+  mindate.setMonth(mindate.getMonth()-1);
+  mindate=mindate.toISOString().slice(0, 10);
+  var maxdate=new Date();
+  maxdate.setMonth(maxdate.getMonth()+1);
+  maxdate=maxdate.toISOString().slice(0, 10);
+
 
     return (
 <div>
@@ -34,10 +41,10 @@ const Form = (props)=>{
   <Input onChange={(event)=>props.change(event,'payto')} value={props.payto} size="md" />
   </FormControl>
   <FormControl id="amount" isRequired><FormLabel>Amount</FormLabel>
-  <Input onChange={(event)=>props.change(event,'amount')} value={props.amount} size="md" />
+  <Input min="0" maxLe="5" onChange={(event)=>props.change(event,'amount')} value={props.amount} size="md" maxLength="14"/>
   </FormControl>
   <FormControl id="date" isRequired><FormLabel>Date</FormLabel>
-  <Input type='date' onChange={(event)=>props.change(event,'date')} value={props.date} size="md" />
+  <Input type='date' onChange={(event)=>props.change(event,'date')} value={props.date} size="md" min={mindate} max={maxdate} />
   </FormControl>
   <FormControl id="Note"><FormLabel>Note</FormLabel>
   <Input onChange={(event)=>props.change(event,'reason1')} value={props.reason1} size="md" maxLength="50"/>

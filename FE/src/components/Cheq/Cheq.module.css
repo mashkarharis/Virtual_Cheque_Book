@@ -68,7 +68,8 @@
     font-size:20px;
     margin-left:50px;
     display:inline-block;
-    position:fixed;
+    position: absolute;
+    top:10px;
     letter-spacing:1px;
     
     
@@ -217,7 +218,8 @@
     font-size:20px;
     /* margin-left:50px; */
     display:inline-block;
-    position:fixed;
+    position: absolute;
+    top:150px;
     letter-spacing:1px;
     margin: 0;
     padding:0;
