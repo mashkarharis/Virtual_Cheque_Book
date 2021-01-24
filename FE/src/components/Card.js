@@ -8,9 +8,11 @@ import {
   Center,
   Button,
   Heading,
+  ReactRouterLink
 } from '@chakra-ui/react';
 import { StarIcon, ArrowForwardIcon } from '@chakra-ui/icons';
-import { MdArrowForward, MdSend, MdZoomIn } from 'react-icons/md';
+import { MdAccountCircle, MdArrowForward, MdSend, MdZoomIn } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 function Card(props) {
   return (
@@ -59,14 +61,14 @@ function Card(props) {
               lineHeight="tight"
               isTruncated
             >
-              <Heading  size="2xl">
+              <Heading size="2xl">
                 {props.type}
               </Heading>
             </Box>
 
             <Box d="flex" mt="2" alignItems="center">
               <Box as="span" ml="2" color="gray.600" fontSize="sm">
-                You have {props.count} cheques
+                
               </Box>
             </Box>
           </Box>
@@ -76,16 +78,19 @@ function Card(props) {
           rowSpan={{ base: 1, md: 3 }}
           pt="50px"
         >
-          <Button
-            rightIcon={<ArrowForwardIcon />}
-            colorScheme="teal"
-            variant="outline"
-            size="lg"
-            rightIcon={<MdSend/>}
-          >
-            Check
-          </Button>
-          
+          <Link as={ReactRouterLink} to={props.link}>
+            <Button
+              rightIcon={<ArrowForwardIcon />}
+              colorScheme="teal"
+              variant="solid"
+              size="lg"
+              mt="30px"
+              rightIcon={<MdSend />}
+            >
+              Go
+              </Button>
+          </Link>
+
         </GridItem>
       </Grid>
     </Box>

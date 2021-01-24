@@ -9,23 +9,12 @@ import './table.css'
 import { GlobalFilter } from '../Cheq/GlobalFilter'
 import {
   Icon,
-  Text,
   Box,
-  MdBuild,
-  Button,
-  Modal,
-  PhoneIcon,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
 } from "@chakra-ui/react"
 import API_Service from '../../Services/API_Service';
 import SessionService from '../../Services/SessionService';
 
 export const Listtable = (props) => {
-  // const { isOpen, onOpen, onClose } = useDisclosure()
   const [MOCK_DATA, SETMOCK_DATA] = useState([]);
   const [firstload, setFirstload] = useState(true);
   if (firstload) {

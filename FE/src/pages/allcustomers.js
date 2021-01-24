@@ -21,6 +21,7 @@ import API_Service from '../Services/API_Service';
 
 function AllCustomers(props) {
     const [reqlist, setReqlist] = useState([]);
+    const [firstload, setFirstload] = useState(true);
     const islogged = SessionService.isAuthenticated();
     console.log(islogged);
 
@@ -44,6 +45,10 @@ function AllCustomers(props) {
         });
 
     }
+    if(firstload){
+        load();
+        setFirstload(false);
+    }
     console.log(reqlist);
 
 
@@ -64,7 +69,6 @@ function AllCustomers(props) {
                     </div>
                 </div>
             </div>
-            <Button onClick={load}>LOAD</Button>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>

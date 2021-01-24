@@ -48,8 +48,8 @@ function App(props) {
           <Route path="/StaffReg" component={StaffReg} />
           <Route path="/signin" exact component={SignIn} />
           <Route path="/signup" exact component={SignUp} />
-          <Route path="/home" exact component={Home} />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/home" exact component={Dashboard} />
+          <Route path="/dashboard" component={Home} />
           <Route path="/Account_Details" component={Account_Details} />
           <Route path="/Contact_Details" component={Contact_Details} />
           <Redirect from='/*' to="/welcome" />

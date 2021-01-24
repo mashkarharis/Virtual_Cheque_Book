@@ -54,7 +54,7 @@ function Staff_Dash(props) {
     console.log("1555");
     var user = JSON.parse(data);
     console.log(user);
-    console.log("-----------------------------------------------------"+JSON.parse(SessionService.getdata()));
+
   
     return (
         <div style={{ height: `500px` }}>

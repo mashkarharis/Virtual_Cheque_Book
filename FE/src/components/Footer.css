@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  bottom: 0;
 }
 
 .footer-subscription {
@@ -158,19 +159,7 @@
     flex-direction: column;
   }
   .footer-container{
-    margin-top: 70px;
+    margin-top: 0px;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .footer-container{
-    margin-top: 1380px;
-  }
-  
-}
-@media screen and (min-width: 850px) {
-  .footer-container{
-    margin-top: 70px;
-  }
-  
-}

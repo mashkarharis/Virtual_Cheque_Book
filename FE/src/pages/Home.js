@@ -60,24 +60,31 @@ function Home(props) {
       </div>
 
       <div className="buttons" p="10px">
+      <Card
+          imageUrl="./images/svg-3.svg"
+          imageAlt="User"
+          type="My Home"
+          link="/home"
+        />
         <Card
           imageUrl="./images/svg-1.svg"
           imageAlt="User"
           type="Received Cheques"
-          count="34 received "
+          link="/getpaid"
         />
         <Card
           imageUrl="./images/svg-5.svg"
           imageAlt="User"
-          type="Sent Cheques"
-          count="sent 12"
+          type="Issue Cheques"
+          link="/chequebuilder"
         />
         <Card
           imageUrl="./images/svg-2.svg"
           imageAlt="User"
-          type="Finished Cheques"
-          count="20 finished "
+          type="Sent Cheques"
+          link="/chequelist"
         />
+        
       </div>
     </>
   );

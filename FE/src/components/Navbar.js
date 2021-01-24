@@ -81,6 +81,7 @@ function Navbar(props) {
             Home
           </Link>
         </MenuItems>
+        <MenuItems>Help me</MenuItems>
         <MenuItems>
           {islogged ?
             <Link as={ReactRouterLink} to="/Dashboard">
@@ -88,7 +89,7 @@ function Navbar(props) {
           </Link> : <></>
           }
         </MenuItems>
-        <MenuItems>Help me</MenuItems>
+        
       </Box>
 
       <Box

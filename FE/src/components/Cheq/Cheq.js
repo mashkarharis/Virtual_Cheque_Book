@@ -10,7 +10,7 @@ var dg = ['zero','one','two','three','four', 'five','six','seven','eight','nine'
 function toWords(s) {
     s = s.toString();
     s = s.replace(/[\, ]/g,'');
-    if (s != parseFloat(s)) return 'zero';
+    if (s === parseFloat(s)) return 'zero';
     var x = s.indexOf('.');
     if (x === -1)
         x = s.length;
