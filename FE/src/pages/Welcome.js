@@ -6,17 +6,18 @@ import {
   Button,
 } from '@chakra-ui/react';
 import '../components/MainSection.css';
-import {  MdSend } from 'react-icons/md';
+import { MdSend } from 'react-icons/md';
 import SessionService from '../Services/SessionService';
 
 function Welcome(props) {
 
-  const islogged=SessionService.isAuthenticated();
+  const islogged = SessionService.isAuthenticated();
   console.log(islogged);
-  
-  if(!islogged){
+
+  if (!islogged) {
     return (
       <>
+
         <div className="main-section">
           <Box pt="150px" h="300px">
             <Center>
@@ -35,10 +36,10 @@ function Welcome(props) {
                 rightIcon={<MdSend />}
                 colorScheme="red"
                 variant="solid"
-                onClick={()=> props.history.push("/signin")}
+                onClick={() => props.history.push("/signin")}
               >
                 Login
-              </Button>            
+              </Button>
             </Center>
             <Center>
               <Button
@@ -46,18 +47,18 @@ function Welcome(props) {
                 rightIcon={<MdSend />}
                 colorScheme="red"
                 variant="solid"
-                onClick={()=> props.history.push("/signup")}
+                onClick={() => props.history.push("/signup")}
               >
                 SignUp
-              </Button>            
+              </Button>
             </Center>
-            
+
           </Box>
         </div>
       </>
     );
 
-  }else{
+  } else {
     return (
       <>
         <div className="main-section">
@@ -78,12 +79,17 @@ function Welcome(props) {
                 rightIcon={<MdSend />}
                 colorScheme="red"
                 variant="solid"
-                onClick={()=> props.history.push("/dashboard")}
+                onClick={() => {
+                  if(JSON.parse(SessionService.getdata()).user_type=="CUSTOMER"){props.history.push("/dashboard")}
+                  else{props.history.push("/Staff_Dashboard")}
+                  
+                }
+                }
               >
                 Dashboard
-              </Button>            
+              </Button>
             </Center>
-            
+
           </Box>
         </div>
       </>

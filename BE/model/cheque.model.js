@@ -11,13 +11,29 @@ var ChequeModel = {
     updateChequeToPass,
     updateChequeToEval,
     updateChequeToRefund,
-    setChecktopass
+    setChecktopass,
+    setChecktoret,
+    getChequesByEID
 }
 
 
 function setChecktopass(chid,eid){
     return new Promise((resolve,reject) => {
-        db.query('UPDATE Cheque SET status="APPROVED" and evaluator_id=? WHERE cheque_id=?',[eid,chid],(error,rows,fields)=>{
+        db.query('UPDATE Cheque SET status="APPROVED" , evaluator_id=? WHERE cheque_id=?',[parseInt(eid),parseInt(chid)],(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+       });
+    });  
+}
+
+function setChecktoret(chid,eid){
+    return new Promise((resolve,reject) => {
+        db.query('UPDATE Cheque SET status="RETURNED" , evaluator_id=? WHERE cheque_id=?',[parseInt(eid),parseInt(chid)],(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
@@ -57,6 +73,21 @@ function getChequesByRID(id) {
        });
     });  
 }
+
+function getChequesByEID(id) {
+    return new Promise((resolve,reject) => {
+        db.query('SELECT * FROM Cheque where evaluator_id = ?', id,(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+       });
+    });  
+}
+
 function getChequesBySID(id) {
     return new Promise((resolve,reject) => {
         db.query('SELECT * FROM Cheque where sender_id = ?', id,(error,rows,fields)=>{

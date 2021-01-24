@@ -18,7 +18,9 @@ var API_Service = {
   getpaid:getpaid,
   refund:refund,
   checktoEval:checktoEval,
-  pas:pas
+  pas:pas,
+  ret:ret,
+  getallchequesbysid:getallchequesbysid
 
 
 }
@@ -76,6 +78,19 @@ function pas(chid,eid,callback){
       callback("error");
     });
 }
+function ret(chid,eid,callback){
+  var url = proxy + 'staff/checktoret/'+chid+"/"+eid;
+  console.log(url);
+  axios.get(url)
+    .then(function (response) {
+      console.log(response);
+      callback(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback("error");
+    });
+}
 
 function getAllgetReceivedCheque(id,callback){
   var url = proxy + 'customer/getAllChequeReceived/' + id;
@@ -93,6 +108,19 @@ function getAllgetReceivedCheque(id,callback){
 
 function getallchequesbyid(id,callback){
   var url = proxy + 'customer/getAllChequeSent/' + id;
+  console.log(url);
+  axios.get(url)
+    .then(function (response) {
+      console.log(response);
+      callback(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+      callback("error");
+    });
+}
+function getallchequesbysid(id,callback){
+  var url = proxy + 'customer/getAllChequeEvaled/' + id;
   console.log(url);
   axios.get(url)
     .then(function (response) {

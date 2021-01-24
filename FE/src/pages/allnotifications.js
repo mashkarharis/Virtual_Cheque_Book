@@ -84,7 +84,7 @@ function AllNotifications(props) {
 
                     <TableBody>
                         {reqlist.map((row) => (
-                            <TableRow key={row.customer_id}>
+                            <TableRow key={row.notification_id}>
 
                                 <TableCell align="right">{row.notification_id}</TableCell>
                                 <TableCell align="right">{row.date}</TableCell>

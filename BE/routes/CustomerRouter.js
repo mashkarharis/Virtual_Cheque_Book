@@ -193,6 +193,24 @@ router.get('/getAllChequeSent/:sender_id', (req, res) => {
 }
 );
 
+
+router.get('/getAllChequeEvaled/:evaluator_id', (req, res) => {
+    var evaluator_id = req.params.evaluator_id;
+    console.log(evaluator_id);
+    ChequeModel.getChequesByEID(evaluator_id).then((success) => {
+        res.json({
+            "success": true,
+            "data": success
+        });
+    }).catch((failed) => {
+        res.json({
+            "success": false,
+            "data": failed
+        });
+    });
+}
+);
+
 //[9]
 router.get('/updateChequeToEval/:cheque_id', (req, res) => {
     var cheque_id = req.params.cheque_id;

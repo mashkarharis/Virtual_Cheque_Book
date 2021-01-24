@@ -191,5 +191,23 @@ router.get('/checktopass/:chid/:eid', (req, res) => {
 }
 );
 
+
+router.get('/checktoret/:chid/:eid', (req, res) => {
+    var chid = req.params.chid;
+    var eid = req.params.eid;
+    ChequeModel.setChecktoret(chid,eid).then((success) => {
+        res.json({
+            "success": true,
+            "data": success
+        });
+    }).catch((failed) => {
+        res.json({
+            "success": false,
+            "data": failed
+        });
+    });
+}
+);
+
 module.exports = router;
 

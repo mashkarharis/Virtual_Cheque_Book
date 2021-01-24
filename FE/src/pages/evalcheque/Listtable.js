@@ -28,10 +28,8 @@ export const Listtable = (props) => {
   // const { isOpen, onOpen, onClose } = useDisclosure()
   const [MOCK_DATA, SETMOCK_DATA] = useState([]);
   const [firstload, setFirstload] = useState(true);
-  console.log("-----------------------------------------------------"+JSON.parse(SessionService.getdata()));
-  
   if (firstload) {
-    API_Service.getallchequesbyid(JSON.parse(SessionService.getdata()).user_id, (res) => {
+    API_Service.getallchequesbysid(JSON.parse(SessionService.getdata()).user_id, (res) => {
       console.log(res.data.data);
       SETMOCK_DATA(res.data.data);
       setFirstload(false);

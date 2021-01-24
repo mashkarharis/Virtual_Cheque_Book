@@ -54,7 +54,8 @@ function Staff_Dash(props) {
     console.log("1555");
     var user = JSON.parse(data);
     console.log(user);
-
+    console.log("-----------------------------------------------------"+JSON.parse(SessionService.getdata()));
+  
     return (
         <div style={{ height: `500px` }}>
 
@@ -168,13 +169,12 @@ function Staff_Dash(props) {
                     <div className="e-card-stacked">
                         <div className="e-card-header">
                             <div className="e-card-header-caption">
-                                <Link as={ReactRouterLink} to="/StaffDashboard">
-                                    Dashboard
-                </Link>
+                            <Button onClick={()=>{props.history.push('/evaledbyme')}}>My Evals</Button>
+                            
                             </div>
                         </div>
                         <div className="e-card-content">
-                            This Link will get you into dashboard
+                            Evaled by me
                 </div>
                     </div>
                 </div>
