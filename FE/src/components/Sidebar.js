@@ -32,8 +32,8 @@ import SessionService from '../Services/SessionService';
 // sidebar nav config
 
 function Sidebar() {
-  
-  
+
+
   return (
     <>
       <Flex
@@ -60,7 +60,7 @@ function Sidebar() {
 
           <Box h="50px" mb="70px">
             <Center>
-              <Text color="white">{JSON.parse(SessionService.getdata()).full_name+""}</Text>
+              <Text color="white">{JSON.parse(SessionService.getdata()).full_name + ""}</Text>
             </Center>
             <Center mb="10px">
               <Badge variant="solid" colorScheme="green">
@@ -82,6 +82,25 @@ function Sidebar() {
               spacing={5}
               align="stretch"
             >
+
+
+
+              <Link as={ReactRouterLink} to="/home">
+                <Button
+                  h="50px"
+                  w="100%"
+                  _hover={{
+                    background: 'gray.800',
+                    color: 'white',
+                    transitionDuration: '0.6s',
+                  }}
+                  rounded="box"
+                  boxShadow="dark-lg"
+                  colorScheme="gray.600"
+                >
+                  Overview
+                </Button>
+              </Link>
               <Link as={ReactRouterLink} to="/Account_Details">
                 <Button
                   h="50px"
@@ -115,6 +134,41 @@ function Sidebar() {
                   Contact Details
                 </Button>
               </Link>
+
+              <Link as={ReactRouterLink} to="/AllNotifications">
+                <Button
+                  h="50px"
+                  w="100%"
+                  _hover={{
+                    background: 'gray.800',
+                    color: 'white',
+                    transitionDuration: '0.6s',
+                  }}
+                  rounded="box"
+                  boxShadow="dark-lg"
+                  colorScheme="gray.600"
+                >
+                  <Center>Notification</Center>
+                </Button>
+              </Link>
+
+              <Link as={ReactRouterLink} to="/FogotPin">
+                <Button
+                  h="50px"
+                  w="100%"
+                  _hover={{
+                    background: 'gray.800',
+                    color: 'white',
+                    transitionDuration: '0.6s',
+                  }}
+                  rounded="box"
+                  boxShadow="dark-lg"
+                  colorScheme="gray.600"
+                >
+                  <Center>Fogot Pin</Center>
+                </Button>
+              </Link>
+
 
               <Divider orientation="horizontal" />
             </VStack>

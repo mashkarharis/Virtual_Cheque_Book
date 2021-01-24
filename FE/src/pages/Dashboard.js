@@ -83,61 +83,6 @@ function Dashboard(props) {
               </Grid>
             </Center>
             <Center mt='30px'>
-            <Center>
-              <Button
-                mt="20px"
-                colorScheme="red"
-                variant="solid"
-                onClick={()=> props.history.push("/home")}
-              >
-                Go To Business
-              </Button>            
-            </Center>
-            <Center>
-              <Button
-                mt="20px"
-                colorScheme="red"
-                variant="solid"
-                onClick={()=> props.history.push("/FogotPin")}
-              >
-                Fogot Pin
-              </Button>            
-            </Center>
-
-            <Center>
-              <Button
-                mt="20px"
-                colorScheme="red"
-                variant="solid"
-                onClick={()=> props.history.push("/getpaid")}
-              >
-                Get Paid
-              </Button>            
-            </Center>
-
-
-
-            <Center>
-              <Button
-                mt="20px"
-                colorScheme="red"
-                variant="solid"
-                onClick={()=> props.history.push("/chequelist")}
-              >
-                Cheque Send By Me
-              </Button>            
-            </Center>
-
-            <Center>
-              <Button
-                mt="20px"
-                colorScheme="red"
-                variant="solid"
-                onClick={()=> props.history.push("/AllNotifications")}
-              >
-                Notifications
-              </Button>            
-            </Center>          
             </Center>
             <Box
               borderStyle="solid"
@@ -148,7 +93,7 @@ function Dashboard(props) {
               mt="50px"
               borderRadius="10px"
             >
-              <Tooltip label="Name" fontSize="md">
+              <Tooltip fontSize="md">
                 <Text pl="2px" color="gray.900" isTruncated>
                   <IconButton
                     m="10px"
@@ -168,7 +113,7 @@ function Dashboard(props) {
               m="10px"
               borderRadius="10px"
             >
-              <Tooltip label="Phone number" fontSize="md">
+              <Tooltip  fontSize="md">
                 <Text pl="2px" color="gray.900" isTruncated>
                   <IconButton
                     m="10px"
@@ -189,13 +134,13 @@ function Dashboard(props) {
               m="10px"
               borderRadius="10px"
             >
-              <Tooltip label="E-Mail" fontSize="md">
+              <Tooltip  fontSize="md">
                 <Text pl="2px" color="gray.700" isTruncated>
                   <IconButton
                     m="10px"
-                    colorScheme="blue"
+                    colorScheme="red"
                     aria-label="Send email"
-                    icon={<EmailIcon />}
+                    icon={<CheckCircleIcon/>}
                   />
                   User Name : {user.username}
                 </Text>
@@ -210,13 +155,13 @@ function Dashboard(props) {
               m="10px"
               borderRadius="10px"
             >
-              <Tooltip label="Address" fontSize="md">
+              <Tooltip  fontSize="md">
                 <Text pl="2px" color="gray.700" isTruncated>
                   <IconButton
                     m="10px"
-                    colorScheme="red"
+                    colorScheme="blue"
                     aria-label="Send email"
-                    icon={<CheckCircleIcon />}
+                    icon={<EmailIcon />}
                   />
                   User Account : {user.account_no}
                 </Text>

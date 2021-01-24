@@ -11,82 +11,174 @@ import {
   Center,
   Button,
   Flex,
+  Image,
+  AlertDialog,
+  Stack,
+  Checkbox,
+  IconButton,
   FormControl,
   FormLabel,
   Input,
   FormHelperText,
-  Divider,
-  InputRightElement,
-  InputGroup,
-  InputLeftElement,
-  Stack,
-  Checkbox,
+  Spinner,
+  Tooltip,
 } from '@chakra-ui/react';
 import Sidebar from '../components/Sidebar';
-import { EmailIcon, LockIcon } from '@chakra-ui/icons';
-import { MdArrowBack } from 'react-icons/md';
+import Alert from '../components/Alert';
+import {
+  ArrowRightIcon,
+  CheckCircleIcon,
+  EmailIcon,
+  PhoneIcon,
+  StarIcon,
+  SunIcon,
+  ViewIcon,
+} from '@chakra-ui/icons';
+import '../components/MainSection.css';
+import Footer from '../components/Footer';
 import SessionService from '../Services/SessionService';
 import { Redirect } from 'react-router-dom';
-import { Card } from '@material-ui/core';
 
 function Account_Details(props) {
-  const [hasError, setHasError] = React.useState(false);
-  const [show, setShow] = React.useState(false);
-  const islogged = SessionService.isAuthenticated();
+  const islogged=SessionService.isAuthenticated();
   console.log(islogged);
 
-  if (!islogged) {
+  if(!islogged){
     return (
       <Redirect
-        to={{ pathname: '/', state: { from: props.location } }}
-      />
+                to={{ pathname: '/', state: { from: props.location } }}
+            />
     );
   }
-
+  var data=SessionService.getdata();
+  console.log("1423");
+  var user=JSON.parse(data);
+  console.log(user);
   return (
-    <>
-      <Sidebar />
+    <Grid
+    container
+    direction="row"
+    justify="space-around"
+    alignItems="center"
+  >
+     <Sidebar disable={[false, true]}/>
+      <div >
+       
 
-      <Box
-        borderStyle="solid"
-        borderColor="gray.800"
-        boarderRadius="200px"
-        mt={{ base: '400px', md: '-30px' }}
-        ml={{ base: '20px', md: '320px' }}
-        pt="150px"
-        h="700px"
-        mr="20px"
-        left="0px"
-        backgroundColor="red"
-      >
         <Box
           borderStyle="solid"
-          borderColor="gray.200"
-          borderWidth="2px"
-          p="10px"
-          pt="30px"
-          mt="-20px"
+          borderColor="gray.800"
+          mt={{ base: '400px', md: '10px' }}
+          ml={{ base: '20px', md: '320px' }}
+          pt="150px"
+          h="700px"
+          mr="20px"
+          left="0px"
+          backgroundColor="red"
         >
-          <Center pb="10px">
-            <h1>Your Info</h1>
-          </Center>
-          <Divider mb="50px" orientation="horizontal" />
+          <Box
+            borderStyle="solid"
+            borderColor="gray.200"
+            borderWidth="2px"
+            p="10px"
+            pt='30px'
+            mt="-20px"
+            borderRadius="20px"
+          >
+            <Center>
+              <Grid templateColumns="repeat(3, 1fr)" gap={20}>
+                
+              </Grid>
+            </Center>
+            <Center mt='30px'>
+            </Center>
+            <Box
+              borderStyle="solid"
+              borderColor="gray.200"
+              borderWidth="2px"
+              h="70px"
+              m="10px"
+              mt="50px"
+              borderRadius="10px"
+            >
+              <Tooltip fontSize="md">
+                <Text pl="2px" color="gray.900" isTruncated>
+                  <IconButton
+                    m="10px"
+                    variant="outline"
+                    colorScheme="teal"
+                    aria-label="Send email"
+                    icon={<ViewIcon />}
+                  />
+                  NIC : {user.NIC}                </Text>
+              </Tooltip>
+            </Box>
+            <Box
+              borderStyle="solid"
+              borderColor="gray.200"
+              borderWidth="2px"
+              h="70px"
+              m="10px"
+              borderRadius="10px"
+            >
+              <Tooltip  fontSize="md">
+                <Text pl="2px" color="gray.900" isTruncated>
+                  <IconButton
+                    m="10px"
+                    colorScheme="green"
+                    aria-label="Call"
+                    icon={<SunIcon />}
+                  />
+                Full Name : {user.full_name}
+                </Text>
+              </Tooltip>
+            </Box>
+
+            <Box
+              borderStyle="solid"
+              borderColor="gray.200"
+              borderWidth="2px"
+              h="70px"
+              m="10px"
+              borderRadius="10px"
+            >
+              <Tooltip  fontSize="md">
+                <Text pl="2px" color="gray.700" isTruncated>
+                  <IconButton
+                    m="10px"
+                    colorScheme="red"
+                    aria-label="Send email"
+                    icon={<StarIcon/>}
+                  />
+                  Name with initials : {user.name_with_init}
+                </Text>
+              </Tooltip>
+            </Box>
+
+            <Box
+              borderStyle="solid"
+              borderColor="gray.200"
+              borderWidth="2px"
+              h="70px"
+              m="10px"
+              borderRadius="10px"
+            >
+              <Tooltip  fontSize="md">
+                <Text pl="2px" color="gray.700" isTruncated>
+                  <IconButton
+                    m="10px"
+                    colorScheme="blue"
+                    aria-label="Send email"
+                    icon={<CheckCircleIcon />}
+                  />
+                  Date of Birth : {user.dob.slice(0,10)}
+                </Text>
+              </Tooltip>
+            </Box>
+          </Box>
         </Box>
-        <Center >
-          <Card><h3>{JSON.parse(SessionService.getdata()).NIC + ""}</h3>
-            <h3>{JSON.parse(SessionService.getdata()).full_name + ""}</h3>
-            <h3>{JSON.parse(SessionService.getdata()).name_with_init + ""}</h3>
-            <h3>{JSON.parse(SessionService.getdata()).dob + ""}</h3></Card>
-
-        </Center>
-
-
-
-
-
-
-      </Box>
-    </>
+      </div>
+    </Grid>
   );
 }
 

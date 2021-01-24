@@ -3,7 +3,7 @@ import { Avatar, Button, CssBaseline, TextField, Checkbox, Link, Grid, Box, Typo
 import SessionService from '../Services/SessionService';
 import { Redirect } from 'react-router-dom';
 import API_Service from '../Services/API_Service';
-
+import Sidebar from '../components/Sidebar';
 
 function Copyright() {
   return (
@@ -57,6 +57,15 @@ export default function FogotPin(props) {
     });
   }
   return (
+    <Grid
+  container
+  direction="row"
+  justify="space-around"
+  alignItems="center"
+>
+    <Sidebar disable={[false, true]}/>
+    <div >
+    
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -82,22 +91,14 @@ export default function FogotPin(props) {
         >
           Get New Pin
           </Button>
-        <Grid container>
-          <Grid item xs>
-            <Link href="#" variant="body2">
-              Forgot password?
-              </Link>
-          </Grid>
-          <Grid item>
-            <Link href="./signup" variant="body2">
-              {"Don't have an account? Sign Up"}
-            </Link>
-          </Grid>
-        </Grid>
+       
+         
       </div>
       <Box mt={8}>
         <Copyright />
       </Box>
     </Container>
+    </div>
+    </Grid>
   );
 }

@@ -11,81 +11,173 @@ import {
   Center,
   Button,
   Flex,
+  Image,
+  AlertDialog,
+  Stack,
+  Checkbox,
+  IconButton,
   FormControl,
   FormLabel,
   Input,
   FormHelperText,
-  Divider,
-  InputRightElement,
-  InputGroup,
-  InputLeftElement,
-  Stack,
-  Checkbox,
-  ReactRouterLink,
+  Spinner,
+  Tooltip,
 } from '@chakra-ui/react';
 import Sidebar from '../components/Sidebar';
-import { EmailIcon, LockIcon } from '@chakra-ui/icons';
-import { MdArrowBack } from 'react-icons/md';
+import Alert from '../components/Alert';
+import {
+  ArrowRightIcon,
+  CheckCircleIcon,
+  EmailIcon,
+  MoonIcon,
+  PhoneIcon,
+  StarIcon,
+  SunIcon,
+  TriangleDownIcon,
+  ViewIcon,
+} from '@chakra-ui/icons';
+import '../components/MainSection.css';
+import Footer from '../components/Footer';
 import SessionService from '../Services/SessionService';
 import { Redirect } from 'react-router-dom';
-import { Card } from '@material-ui/core';
 
 function Contact_Details(props) {
-
-  const [hasError, setHasError] = React.useState(false);
-  const [show, setShow] = React.useState(false);
-  const islogged = SessionService.isAuthenticated();
+  const islogged=SessionService.isAuthenticated();
   console.log(islogged);
 
-  if (!islogged) {
+  if(!islogged){
     return (
       <Redirect
-        to={{ pathname: '/', state: { from: props.location } }}
-      />
+                to={{ pathname: '/', state: { from: props.location } }}
+            />
     );
   }
+  var data=SessionService.getdata();
+  console.log("1423");
+  var user=JSON.parse(data);
+  console.log(user);
   return (
     <>
-      <Sidebar />
+      <div className="dashboard">
+        <Sidebar disable={[false, true]}/>
 
-      <Box
-        borderStyle="solid"
-        borderColor="gray.800"
-        boarderRadius="200px"
-        mt={{ base: '400px', md: '-30px' }}
-        ml={{ base: '20px', md: '320px' }}
-        pt="150px"
-        h="700px"
-        mr="20px"
-        left="0px"
-        backgroundColor="red"
-      >
         <Box
           borderStyle="solid"
-          borderColor="gray.200"
-          borderWidth="2px"
-          p="10px"
-          pt="30px"
-          mt="-20px"
-          borderRadius="20px"
+          borderColor="gray.800"
+          mt={{ base: '400px', md: '10px' }}
+          ml={{ base: '20px', md: '320px' }}
+          pt="150px"
+          h="700px"
+          mr="20px"
+          left="0px"
+          backgroundColor="red"
         >
-          <Center pb="10px">
-            <h1>Contact Details</h1>
-          </Center>
-          <Center >
-            <Card>
-              <h3>{JSON.parse(SessionService.getdata()).contact_primary + ""}</h3>
-              <h3>{JSON.parse(SessionService.getdata()).contact_secondary + ""}</h3>
-              <h3>{JSON.parse(SessionService.getdata()).house_no + ""}</h3>
-              <h3>{JSON.parse(SessionService.getdata()).street + ""}</h3>
-              <h3>{JSON.parse(SessionService.getdata()).city + ""}</h3>
-              <h3>{JSON.parse(SessionService.getdata()).postal_code + ""}</h3>
-            
-            </Card>
+          <Box
+            borderStyle="solid"
+            borderColor="gray.200"
+            borderWidth="2px"
+            p="10px"
+            pt='30px'
+            mt="-20px"
+            borderRadius="20px"
+          >
+            <Center>
+              <Grid templateColumns="repeat(3, 1fr)" gap={20}>
+                
+              </Grid>
+            </Center>
+            <Center mt='30px'>
+            </Center>
+            <Box
+              borderStyle="solid"
+              borderColor="gray.200"
+              borderWidth="2px"
+              h="70px"
+              m="10px"
+              mt="50px"
+              borderRadius="10px"
+            >
+              <Tooltip fontSize="md">
+                <Text pl="2px" color="gray.900" isTruncated>
+                  <IconButton
+                    m="10px"
+                    variant="outline"
+                    colorScheme="teal"
+                    aria-label="Send email"
+                    icon={<PhoneIcon />}
+                  />
+                  Primany Contact No : {user.contact_primary}                </Text>
+              </Tooltip>
+            </Box>
+            <Box
+              borderStyle="solid"
+              borderColor="gray.200"
+              borderWidth="2px"
+              h="70px"
+              m="10px"
+              borderRadius="10px"
+            >
+              <Tooltip  fontSize="md">
+                <Text pl="2px" color="gray.900" isTruncated>
+                  <IconButton
+                    m="10px"
+                    colorScheme="green"
+                    aria-label="Call"
+                    icon={<EmailIcon />}
+                  />
+                Email : {user.contact_secondary}
+                </Text>
+              </Tooltip>
+            </Box>
 
-          </Center>
+            <Box
+              borderStyle="solid"
+              borderColor="gray.200"
+              borderWidth="2px"
+              h="70px"
+              m="10px"
+              borderRadius="10px"
+            >
+              <Tooltip  fontSize="md">
+                <Text pl="2px" color="gray.700" isTruncated>
+                  <IconButton
+                    m="10px"
+                    colorScheme="red"
+                    aria-label="Send email"
+                    icon={<StarIcon/>}
+                  />
+                  Address : {user.house_no+" , "+user.street+" , "+user.city}
+                </Text>
+              </Tooltip>
+            </Box>
+
+            
+            <Box
+              borderStyle="solid"
+              borderColor="gray.200"
+              borderWidth="2px"
+              h="70px"
+              m="10px"
+              borderRadius="10px"
+            >
+              <Tooltip  fontSize="md">
+                <Text pl="2px" color="gray.700" isTruncated>
+                  <IconButton
+                    m="10px"
+                    colorScheme="yellow"
+                    aria-label="Send email"
+                    icon={<TriangleDownIcon/>}
+                  />
+                  Postal Code : {user.postal_code}
+                </Text>
+              </Tooltip>
+            </Box>
+            
+          </Box>
+
+
         </Box>
-      </Box>
+      </div>
     </>
   );
 }
