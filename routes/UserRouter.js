@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 //[2]
 router.post('/authUser', (req, res) => {
 
-    
+    console.log(req.body);
     hashservice.hashpassword(req.body.login_pwd, (hash) => {
         var authenticData = {
             "login_username": req.body.login_username,
@@ -42,6 +42,8 @@ router.post('/authUser', (req, res) => {
 // [1]
 router.post('/addUserCustomer', (req, res) => {
 
+    console.log(req.body);
+
     hashservice.hashpassword(req.body.password, (hashed) => {
         console.log("Ok");
         var customer = [
@@ -60,7 +62,7 @@ router.post('/addUserCustomer', (req, res) => {
             parseInt(req.body.postal_code + ''),
             generatepin(6),
             parseInt(req.body.contact_primary + ''),
-            parseInt(req.body.contact_secondary + ''),
+            req.body.contact_secondary + '',
         ]
         console.log(customer);
         CustomerModel.addCustomer(customer).then((success) => {

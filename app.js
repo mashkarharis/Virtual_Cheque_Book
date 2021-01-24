@@ -12,6 +12,12 @@ const customerRouter=require('./routes/CustomerRouter');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// CORS
+// Add headers
+var cors = require('cors');
+
+// use it before all route definitions
+app.use(cors({origin: 'http://localhost:3000'}));
 
 // Redirect to router files
 app.use('/user',userRouter);

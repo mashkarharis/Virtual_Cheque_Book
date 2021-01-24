@@ -1,7 +1,7 @@
 {
     
     "host": {
-        "port": 3000
+        "port": 3084
     },
     "db":{
         "user":"umaim64n3koovo8v",

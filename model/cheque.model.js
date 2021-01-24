@@ -10,7 +10,39 @@ var ChequeModel = {
     addCheque,
     updateChequeToPass,
     updateChequeToEval,
-    updateChequeToRefund
+    updateChequeToRefund,
+    setChecktopass,
+    setChecktoret,
+    getChequesByEID
+}
+
+
+function setChecktopass(chid,eid){
+    return new Promise((resolve,reject) => {
+        db.query('UPDATE Cheque SET status="APPROVED" , evaluator_id=? WHERE cheque_id=?',[parseInt(eid),parseInt(chid)],(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+       });
+    });  
+}
+
+function setChecktoret(chid,eid){
+    return new Promise((resolve,reject) => {
+        db.query('UPDATE Cheque SET status="RETURNED" , evaluator_id=? WHERE cheque_id=?',[parseInt(eid),parseInt(chid)],(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+       });
+    });  
 }
 
 function getCheques() {
@@ -41,6 +73,21 @@ function getChequesByRID(id) {
        });
     });  
 }
+
+function getChequesByEID(id) {
+    return new Promise((resolve,reject) => {
+        db.query('SELECT * FROM Cheque where evaluator_id = ?', id,(error,rows,fields)=>{
+            if(!!error) {
+                dbFunc.connectionRelease;
+                reject(error);
+            } else {
+                dbFunc.connectionRelease;
+                resolve(rows);
+            }
+       });
+    });  
+}
+
 function getChequesBySID(id) {
     return new Promise((resolve,reject) => {
         db.query('SELECT * FROM Cheque where sender_id = ?', id,(error,rows,fields)=>{
@@ -55,9 +102,9 @@ function getChequesBySID(id) {
     });  
 }
 
-function getChequesByIDWStatus(id) {
+function getChequesByIDWStatus(stat) {
     return new Promise((resolve,reject) => {
-        db.query('SELECT * FROM Cheque where sender_id = ? and status = ?',[id.user_id, id.status],(error,rows,fields)=>{
+        db.query('SELECT * FROM Cheque where status = ?',stat,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
@@ -84,9 +131,11 @@ function getChequesByReceiver(id) {
 }
 
 function addCheque(cheque) {
+    console.log("---"+cheque);
     //TODO: set "Cheque" attribute appropriate to the data passing -- checkout ../document/add_cheque.txt 
     return new Promise((resolve,reject) => {
-        db.query(`CALL add_cheque(?,?,?,?,?)`,cheque,(error,rows,fields)=>{
+        var querystring="insert into Cheque (sender_id,receiver_id,amount,status,date,note) values (?,?,?,?,?,?)"
+        db.query(querystring,cheque,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);

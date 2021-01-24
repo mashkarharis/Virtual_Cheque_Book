@@ -25,7 +25,7 @@ function getEmps() {
 
 function getEmpById(id) {
     return new Promise((resolve,reject) => {
-        db.query('SELECT * FROM Employee where emp_id = ?', [id.emp_id],(error,rows,fields)=>{
+        db.query('SELECT * FROM Employee where emp_id = ?', [id],(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
@@ -54,7 +54,7 @@ function getEmpsByStatus() {
 function addEmp(emp) {
     //TODO: set "Employee" attribute appropriate to the data passing -- checkout ../document/emp_reg.txt 
     return new Promise((resolve,reject) => {
-        db.query(`CALL emp_reg(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[emp],(error,rows,fields)=>{
+        db.query(`CALL emp_reg(?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,emp,(error,rows,fields)=>{
             if(!!error) {
                 dbFunc.connectionRelease;
                 reject(error);
