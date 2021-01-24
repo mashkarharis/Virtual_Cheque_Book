@@ -42,12 +42,7 @@ BEGIN
     insert into Customer (customer_id, account_no, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_primary, contact_secondary)
     value (LAST_INSERT_ID(), account_no, full_name, name_with_init, dob, created_date, NIC, gender, house_no, street, city, postal_code, pin, contact_primary, contact_secondary);
 
-<<<<<<< HEAD
     COMMIT work;
 	
 END
-=======
-END;
-//
-DELIMITER ;
->>>>>>> dc2be1b3604dca19f52a7fea16d4da1e535b44ec
+

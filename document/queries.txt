@@ -1,0 +1,13 @@
+use movie_store_2;
+
+select first_name ,last_name from customer where customer_id in (select customer_id from payment);
+
+select city from city join country using (country_id) where country like 'In%';
+
+select * from film where language_id = (select language_id from language where name = "English") order by release_year;
+
+select first_name from actor where actor_id in(select actor_id from film_actor where film_id in (select film_id from film where rating = "G"));
+
+select email from staff where staff_id = (select staff_id from staff where store);
+
+select email from staff where staff_id = (select manager_staff_id from store where store_id = (select store_id from staff where first_name = 'Demi'));
